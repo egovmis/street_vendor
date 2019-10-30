@@ -9,7 +9,7 @@ import org.apache.coyote.RequestInfo;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sv.app.bean.UserBean;
+import com.sv.app.bean.ULBMasterBean;
 
 import lombok.Data;
 
@@ -21,6 +21,6 @@ public @Data class UserRequest {
 	  private RequestInfo requestInfo = new RequestInfo(null);
 	  @Valid
 	  
-	  @NotEmpty private List<UserBean> vendors = new ArrayList<>();
+	  @NotEmpty private List<ULBMasterBean> vendors = new ArrayList<>();
 	 
 }
