@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.medical.app&apos; to &apos;com.sv.app&apos;&#x0D;&#x0A;- Original project: &apos;sv-api&apos;&#x0D;&#x0A;- Original element: &apos;sv-api/src/main/java/com.medical.app&apos;&#x0D;&#x0A;- Renamed element: &apos;sv-api/src/main/java/com.sv.app&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings&#x0D;&#x0A;- Rename subpackages of the package" description="Rename package &apos;com.medical.app&apos;" flags="589830" hierarchical="true" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java&lt;com.medical.app" name="com.sv.app" qualified="false" references="true" stamp="1572420422222" textual="false" version="1.0"/>
+</session>

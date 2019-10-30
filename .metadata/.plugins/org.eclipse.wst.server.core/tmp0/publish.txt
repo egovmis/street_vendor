@@ -1,0 +1,5 @@
+#Tomcat publish data
+#Tue Sep 17 10:12:01 IST 2019
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\PMIDC-Aarif\\.m2\\repository\\org\\apache\\tomcat\\embed\\tomcat-embed-websocket\\7.0.56\\tomcat-embed-websocket-7.0.56.jar=H\:\\Softwares\\Editor\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\search-api\\WEB-INF\\lib\\tomcat-embed-websocket-7.0.56.jar
+org.eclipse.jst.jee.server\:search-api=H\:\\Softwares\\Editor\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\search-api
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\PMIDC-Aarif\\.m2\\repository\\org\\springframework\\spring-web\\4.3.4.RELEASE\\spring-web-4.3.4.RELEASE.jar=H\:\\Softwares\\Editor\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\search-api\\WEB-INF\\lib\\spring-web-4.3.4.RELEASE.jar

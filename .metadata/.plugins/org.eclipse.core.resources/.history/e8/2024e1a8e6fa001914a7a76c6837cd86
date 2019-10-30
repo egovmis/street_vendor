@@ -1,0 +1,12 @@
+package com.medical.app.service;
+
+import com.medical.app.bean.AdminBean;
+
+public interface AdminService {
+	
+	public AdminBean adminLogin(String email, String password);
+	public int setAuthToken(String authToken, String email, String password);
+	
+	
+
+}

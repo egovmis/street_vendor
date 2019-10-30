@@ -1,0 +1,26 @@
+package com.medical.app.serviceImp;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.medical.app.bean.PhysicianBean;
+import com.medical.app.repository.PhysicianRepository;
+import com.medical.app.service.PhysicianService;
+
+@Service
+@Transactional
+public class PhysicianServiceImp implements PhysicianService{
+	
+	@Autowired
+	PhysicianRepository physicianRepository;
+	
+	@Override
+	public List<PhysicianBean> findAllPhysician() {
+		// TODO Auto-generated method stub
+		return (List<PhysicianBean>) physicianRepository.findAll();
+	}
+
+}

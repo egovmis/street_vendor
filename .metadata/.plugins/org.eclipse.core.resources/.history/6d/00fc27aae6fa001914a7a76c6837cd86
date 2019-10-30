@@ -1,0 +1,5 @@
+package com.medical.app.reqRes;
+
+public class UserResponse {
+
+}

@@ -1,0 +1,10 @@
+package com.medical.app.service;
+
+import java.util.List;
+
+import com.medical.app.bean.StaffBean;
+
+public interface StaffService {
+	public List<StaffBean> findAllStaff();
+
+}

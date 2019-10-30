@@ -1,0 +1,10 @@
+package com.medical.app.service;
+
+import java.util.List;
+
+import com.sv.app.bean.CompanyBean;
+
+public interface CompanyService {
+	public List<CompanyBean> findAllCompany();
+
+}

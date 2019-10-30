@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="swm-services"/>
+<aop-project name="search-api"/>
+<aop-project name="Medical-Api"/>
+</aop-reference-model>
