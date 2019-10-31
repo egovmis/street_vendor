@@ -1,7 +1,5 @@
 package com.sv.app.service;
 
-import com.sv.app.bean.ApplicationStatusBean;
-
 public interface ApplicationStatusService {
 	
 	/*
