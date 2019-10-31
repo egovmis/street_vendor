@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.sv.app.bean.UserBean;
-import com.sv.app.service.UserService;
+import com.sv.app.bean.EmployeeBean;
+import com.sv.app.service.EmployeeService;
 
 public class RequestValidator implements Validator {
 	@Autowired
-	UserService userService;
+	EmployeeService userService;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
 		// TODO Auto-generated method stub
-		return UserBean.class.equals(clazz);
+		return EmployeeBean.class.equals(clazz);
 	}
 
 	@Override
