@@ -4,9 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -19,14 +23,12 @@ public class FamilyMemberBean {
 		private String familyMemberUuid;
 
 		
-	/*
-	 * @ManyToAny(fetch = FetchType.LAZY, metaColumn
-	 * = @Column(name="vendor_reg_id"))
-	 * 
-	 * @JoinColumn(name = "reg_uuid", nullable = false)
-	 * 
-	 * @JsonIgnore private VendorBean vendorRegID ;
-	 */
+	
+		@ManyToOne(fetch = FetchType.LAZY)
+	  	@JoinColumn(name = "reg_uuid", nullable = false)
+	    @JsonIgnore 
+	    private VendorBean vendorRegID ;
+	
 
 		@Column(name="name")
 		private String name;

@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +25,7 @@ public class VendingSiteBean {
 	@Column(name = "vending_site_uuid")
 	private String vendingSiteId;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "vending_zone_code", nullable = false)
 	@JsonIgnore
 	private VendingZoneBean vendingZoneBean;

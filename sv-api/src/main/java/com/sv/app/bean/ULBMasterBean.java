@@ -63,11 +63,11 @@ public class ULBMasterBean {
 		}
 
 		public String getNo_of_eo() {
-			return no_of_eo;
+			return nameOfEo;
 		}
 
 		public void setNo_of_eo(String no_of_eo) {
-			this.no_of_eo = no_of_eo;
+			this.nameOfEo = no_of_eo;
 		}
 
 		public String getContact_no() {
@@ -103,8 +103,8 @@ public class ULBMasterBean {
 		@Column(name="DDR")
 		private String DDR;
 		
-		@Column(name="no_of_eo")
-		private String no_of_eo;
+		@Column(name="name_of_eo")
+		private String nameOfEo;
 		
 		@Column(name="contact_no")
 		private String contact_no;

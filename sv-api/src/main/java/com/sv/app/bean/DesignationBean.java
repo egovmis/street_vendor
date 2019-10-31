@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 	@Entity
-	@Table(name="designation")
+	@Table(name="designations")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public class DesignationBean implements Serializable{
 		
@@ -18,24 +18,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 		@Id
 		@Column(name="designation_code")
-		private long designationCode;
+		private String designationCode;
 		
 		@Column(name="designation_name")
-		private long designationName;
+		private String designationName;
 
-		public long getDesignationCode() {
+		public String getDesignationCode() {
 			return designationCode;
 		}
 
-		public void setDesignationCode(long designationCode) {
+		public void setDesignationCode(String designationCode) {
 			this.designationCode = designationCode;
 		}
 
-		public long getDesignationName() {
+		public String getDesignationName() {
 			return designationName;
 		}
 
-		public void setDesignationName(long designationName) {
+		public void setDesignationName(String designationName) {
 			this.designationName = designationName;
 		}
 		

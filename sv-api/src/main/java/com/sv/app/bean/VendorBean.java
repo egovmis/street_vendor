@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 	@Entity
-	@Table(name="vendor")
+	@Table(name="reg_vendor")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public class VendorBean {
 
@@ -41,8 +41,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		@Column(name="address")
 		private String address;
 		
-		@Column(name="ulb_name")
-		private String ulbName;
+		@Column(name="ulb_code")
+		private String ulbCode;
 		
 		@Column(name="opted_vending_category")
 		private String optedVendingCategory;
@@ -76,6 +76,188 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		
 		@Column(name="remarks")
 		private String remarks;
+		
+		public long getRegId() {
+			return regId;
+		}
+
+		public void setRegId(long regId) {
+			this.regId = regId;
+		}
+
+		public String getRegUuid() {
+			return regUuid;
+		}
+
+		public void setRegUuid(String regUuid) {
+			this.regUuid = regUuid;
+		}
+
+		public String getUniqueApplicationNo() {
+			return uniqueApplicationNo;
+		}
+
+		public void setUniqueApplicationNo(String uniqueApplicationNo) {
+			this.uniqueApplicationNo = uniqueApplicationNo;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getDob() {
+			return dob;
+		}
+
+		public void setDob(String dob) {
+			this.dob = dob;
+		}
+
+		public String getGender() {
+			return gender;
+		}
+
+		public void setGender(String gender) {
+			this.gender = gender;
+		}
+
+		public String getBusinessTypeUuid() {
+			return businessTypeUuid;
+		}
+
+		public void setBusinessTypeUuid(String businessTypeUuid) {
+			this.businessTypeUuid = businessTypeUuid;
+		}
+
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
+
+		public String getUlbCode() {
+			return ulbCode;
+		}
+
+		public void setUlbCode(String ulbCode) {
+			this.ulbCode = ulbCode;
+		}
+
+		public String getOptedVendingCategory() {
+			return optedVendingCategory;
+		}
+
+		public void setOptedVendingCategory(String optedVendingCategory) {
+			this.optedVendingCategory = optedVendingCategory;
+		}
+
+		public String getAllocatedVendingCategory() {
+			return allocatedVendingCategory;
+		}
+
+		public void setAllocatedVendingCategory(String allocatedVendingCategory) {
+			this.allocatedVendingCategory = allocatedVendingCategory;
+		}
+
+		public String getOptedZone() {
+			return optedZone;
+		}
+
+		public void setOptedZone(String optedZone) {
+			this.optedZone = optedZone;
+		}
+
+		public String getAllocatedZone() {
+			return allocatedZone;
+		}
+
+		public void setAllocatedZone(String allocatedZone) {
+			this.allocatedZone = allocatedZone;
+		}
+
+		public String getDateOfApplication() {
+			return dateOfApplication;
+		}
+
+		public void setDateOfApplication(String dateOfApplication) {
+			this.dateOfApplication = dateOfApplication;
+		}
+
+		public String getDateOfApproval() {
+			return dateOfApproval;
+		}
+
+		public void setDateOfApproval(String dateOfApproval) {
+			this.dateOfApproval = dateOfApproval;
+		}
+
+		public String getActive() {
+			return active;
+		}
+
+		public void setActive(String active) {
+			this.active = active;
+		}
+
+		public String getRegFeePaymentStatus() {
+			return regFeePaymentStatus;
+		}
+
+		public void setRegFeePaymentStatus(String regFeePaymentStatus) {
+			this.regFeePaymentStatus = regFeePaymentStatus;
+		}
+
+		public String getApplicationStatus() {
+			return applicationStatus;
+		}
+
+		public void setApplicationStatus(String applicationStatus) {
+			this.applicationStatus = applicationStatus;
+		}
+
+		public String getRegValidUptoDate() {
+			return regValidUptoDate;
+		}
+
+		public void setRegValidUptoDate(String regValidUptoDate) {
+			this.regValidUptoDate = regValidUptoDate;
+		}
+
+		public String getRemarks() {
+			return remarks;
+		}
+
+		public void setRemarks(String remarks) {
+			this.remarks = remarks;
+		}
+
+		public String getIdentityNumber() {
+			return identityNumber;
+		}
+
+		public void setIdentityNumber(String identityNumber) {
+			this.identityNumber = identityNumber;
+		}
+
+		public int getFamilyPicId() {
+			return familyPicId;
+		}
+
+		public void setFamilyPicId(int familyPicId) {
+			this.familyPicId = familyPicId;
+		}
+
+		@Column(name="identity_number")
+		private String identityNumber;
+		
+		@Column(name="family_pic_id")
+		private int familyPicId;
 		
 		
 	}
