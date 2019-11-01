@@ -2,11 +2,16 @@ package com.sv.app.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 	@Entity
@@ -44,17 +49,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		@Column(name="ulb_code")
 		private String ulbCode;
 		
-		@Column(name="opted_vending_category")
-		private String optedVendingCategory;
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="opted_vending_category")
+		@JsonIgnore
+		private CategoryBean optedVendingCategory;
 		
-		@Column(name="allocated_vending_category")
-		private String allocatedVendingCategory;
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="allocated_vending_category")
+		@JsonIgnore
+		private CategoryBean allocatedVendingCategory;
 		
-		@Column(name="opted_zone")
-		private String optedZone;
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="opted_zone")
+		@JsonIgnore
+		private VendingZoneBean optedZone;
 		
-		@Column(name="allocated_zone")
-		private String allocatedZone;
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="allocated_zone")
+		@JsonIgnore
+		private VendingZoneBean allocatedZone;
 		
 		@Column(name="date_of_application")
 		private String dateOfApplication;
@@ -147,38 +160,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 		public void setUlbCode(String ulbCode) {
 			this.ulbCode = ulbCode;
-		}
-
-		public String getOptedVendingCategory() {
-			return optedVendingCategory;
-		}
-
-		public void setOptedVendingCategory(String optedVendingCategory) {
-			this.optedVendingCategory = optedVendingCategory;
-		}
-
-		public String getAllocatedVendingCategory() {
-			return allocatedVendingCategory;
-		}
-
-		public void setAllocatedVendingCategory(String allocatedVendingCategory) {
-			this.allocatedVendingCategory = allocatedVendingCategory;
-		}
-
-		public String getOptedZone() {
-			return optedZone;
-		}
-
-		public void setOptedZone(String optedZone) {
-			this.optedZone = optedZone;
-		}
-
-		public String getAllocatedZone() {
-			return allocatedZone;
-		}
-
-		public void setAllocatedZone(String allocatedZone) {
-			this.allocatedZone = allocatedZone;
 		}
 
 		public String getDateOfApplication() {

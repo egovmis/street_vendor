@@ -1,8 +1,11 @@
 package com.sv.app.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,23 +17,20 @@ import com.sv.app.bean.ULBMasterBean;
 import com.sv.app.service.EmployeeService;
 
 @RestController
-@RequestMapping(value={"/_upset"})
+@RequestMapping(value = { "/_upset" })
 public class PersisterController {
 
 	@Autowired
 	EmployeeService employeeService;
-	
-	 @PostMapping(value="/employee",headers="Accept=application/json")
-	 @ResponseBody
-	 public EmployeeBean createEmployee(@Valid @RequestBody final EmployeeBean employeeBean) {
-		/* String token = UUID.randomUUID().toString(); */
-//		 ULBMasterBean mBean = employeeBean.getUlbCode();
-		 
-		 System.out.println("==============> "+employeeBean);
-	  EmployeeBean tasks=null;//employeeService.save(employeeBean);
-	
-	  return tasks;
-	
-	 }
+
+	@PostMapping(value = "/createemployee", headers = "Accept=application/json")
+	@ResponseBody
+	public EmployeeBean createEmployee(@Valid @RequestBody final EmployeeBean employeeBean) {
+
+		EmployeeBean tasks = employeeService.save(employeeBean);
+
+		return tasks;
+
+	}
 
 }
