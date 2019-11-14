@@ -14,22 +14,45 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
-
+	
 	@Override
-	public List<EmployeeBean> findAllEmployee() {
+	public int setAuthToken(String authToken, String name, String password) {
 		// TODO Auto-generated method stub
-		return (List<EmployeeBean>) employeeRepository.findAll();
+		try
+		{
+			return (int)employeeRepository.setAuthToken(authToken, name, password);
+		}
+		catch(Exception e)
+		{
+			return 0;
+		}
+		
 	}
 
 	@Override
-	public EmployeeBean findEmployeeById(long id) {
-		return (EmployeeBean) employeeRepository.findOne(id);
-	}
+	public EmployeeBean findLoginEmployee(String name, String password) {
+		return employeeRepository.loginValidate(name, password);
+			}
+	
+	/*
+	 * @Override public List<EmployeeBean> findAllEmployee() { // TODO
+	 * Auto-generated method stub return (List<EmployeeBean>)
+	 * employeeRepository.findAll(); }
+	 */
 
 	@Override
-	public List<EmployeeBean> findEmployeeByName(String name) {
-		return (List<EmployeeBean>) employeeRepository.findbyName(name);
+	public List<EmployeeBean> findEmployeeByRequestParam(EmployeeBean employeeBean) {
+		return (List<EmployeeBean>) employeeRepository.findEmployeeByRequestParam(employeeBean.getEmpId(), employeeBean.getName(), employeeBean.getPhoneNo(), employeeBean.getPassword(), employeeBean.getAuthToken());
 	}
+
+	
+	/*
+	 * @Override public EmployeeBean findEmployeeById(int id) { return
+	 * (EmployeeBean) employeeRepository.findOne(id); }
+	 * 
+	 * @Override public List<EmployeeBean> findEmployeeByName(String name) { return
+	 * (List<EmployeeBean>) employeeRepository.findbyName(name); }
+	 */
 
 	@Override
 	public EmployeeBean save(EmployeeBean employeeBean) {

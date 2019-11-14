@@ -1,21 +1,31 @@
 package com.sv.app.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "employee")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class EmployeeBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -23,36 +33,51 @@ public class EmployeeBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "empid")
-	private long empId;
+	private int empId;
 
 	@Column(name = "name")
 	private String name;
 
-	private String ulbName;
-	private String degName;
-
 	@Column(name = "phone_no")
 	private String phoneNo;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "ulb_code")
-	private ULBMasterBean ulbCode;
+	
+	 
+	   @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "ulb_code", nullable = false)
+	    @OnDelete(action = OnDeleteAction.CASCADE)
+	   
+	  private ULBMasterBean ulbBean;
+	   
+	   @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "designation_code", nullable = false)
+	    @OnDelete(action = OnDeleteAction.CASCADE)
+	   
+	   private DesignationBean designationBean;
+	  
+	/*
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "designation_code") private DesignationBean designationBean;
+	 */
+	 
 
 	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "auth_token")
+	private String authToken;
 
 	@Column(name = "active")
 	private String active;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "designation", referencedColumnName = "designation_code", insertable = false, updatable = false)
-	private DesignationBean designationBean;
+	// =====Setter and Getter============//
 
-	public long getEmpId() {
+	public int getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(long empId) {
+	public void setEmpId(int empId) {
 		this.empId = empId;
 	}
 
@@ -72,12 +97,35 @@ public class EmployeeBean implements Serializable {
 		this.phoneNo = phoneNo;
 	}
 
-	public ULBMasterBean getUlbCode() {
-		return ulbCode;
+	
+	
+	
+	  public ULBMasterBean getUlbBean() { return ulbBean; }
+	  
+	  public void setUlbBean(ULBMasterBean ulbBean) { this.ulbBean = ulbBean; }
+	  
+	  
+	 
+	/*
+	 * public DesignationBean getDesignationBean() { return designationBean; }
+	 * 
+	 * public void setDesignationBean(DesignationBean designationBean) {
+	 * this.designationBean = designationBean; }
+	 */
+	 
+	/*
+	 * public List<ULBMasterBean> getUlbBean() { return ulbBean; }
+	 * 
+	 * public void setUlbBean(List<ULBMasterBean> ulbBean) { this.ulbBean = ulbBean;
+	 * }
+	 */
+
+	public DesignationBean getDesignationBean() {
+		return designationBean;
 	}
 
-	public void setUlbCode(ULBMasterBean ulbCode) {
-		this.ulbCode = ulbCode;
+	public void setDesignationBean(DesignationBean designationBean) {
+		this.designationBean = designationBean;
 	}
 
 	public String getPassword() {
@@ -86,6 +134,16 @@ public class EmployeeBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
 	}
 
 	public String getActive() {
@@ -96,34 +154,19 @@ public class EmployeeBean implements Serializable {
 		this.active = active;
 	}
 
-	public DesignationBean getDesignationBean() {
-		return designationBean;
-	}
-
-	public void setDesignationBean(DesignationBean designationBean) {
-		this.designationBean = designationBean;
-	}
-
-	public String getUlbName() {
-		return ulbName;
-	}
-
-	public void setUlbName(String ulbName) {
-		this.ulbName = ulbName;
-	}
-
-	public String getDegName() {
-		return degName;
-	}
-
-	public void setDegName(String degName) {
-		this.degName = degName;
+	public EmployeeBean() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
-		return "EmployeeBean [empId=" + empId + ", name=" + name + ", phoneNo=" + phoneNo + ", ulbCode=" + ulbCode
-				+ ", password=" + password + ", active=" + active + ", designationBean=" + designationBean + "]";
+		return "EmployeeBean [empId=" + empId + ", name=" + name + ", phoneNo=" + phoneNo + ", password=" + password
+				+ ", authToken=" + authToken + ", active=" + active + "]";
 	}
+
+
+	
+	
 
 }

@@ -1,5 +1,12 @@
 package com.sv.app.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.sv.app.bean.ULBMasterBean;
+
+@Service
 public interface ULBMasterService{
 	/*
 	 * public ULBMasterBean addUser(ULBMasterBean userBean); public
@@ -9,4 +16,6 @@ public interface ULBMasterService{
 	 * ULBMasterBean update(ULBMasterBean userBean); public void deleteUserById(long
 	 * id); public ULBMasterBean updatePartially(ULBMasterBean userBean, long id);
 	 */
+	
+	List<ULBMasterBean> getAllUlb();
 }

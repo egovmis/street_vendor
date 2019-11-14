@@ -1,13 +1,26 @@
 package com.sv.app.serviceImp;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sv.app.bean.ULBMasterBean;
+import com.sv.app.repository.ULBMasterRepository;
 import com.sv.app.service.ULBMasterService;
 
 @Service
 @Transactional
 public class ULBMasterServiceImp implements ULBMasterService {
+
+	@Autowired
+	ULBMasterRepository ulbMasterRepository;
+	
+	@Override
+	public List<ULBMasterBean> getAllUlb() {
+		return (List<ULBMasterBean>) ulbMasterRepository.findAll();
+	}
 	/*
 	 * @Autowired UserRepository userRepository;
 	 * 

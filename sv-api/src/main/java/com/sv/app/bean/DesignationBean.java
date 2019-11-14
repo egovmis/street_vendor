@@ -9,35 +9,49 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-	@Entity
-	@Table(name="designations")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	public class DesignationBean implements Serializable{
-		
-		private static final long serialVersionUID = 1L;
 
-		@Id
-		@Column(name="designation_code")
-		private String designationCode;
-		
-		@Column(name="designation_name")
-		private String designationName;
+@Entity
+@Table(name = "designations")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class DesignationBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-		public String getDesignationCode() {
-			return designationCode;
-		}
+	@Id
+	@Column(name = "designation_code")
+	private String designationCode;
 
-		public void setDesignationCode(String designationCode) {
-			this.designationCode = designationCode;
-		}
+	@Column(name = "designation_name")
+	private String designationName;
 
-		public String getDesignationName() {
-			return designationName;
-		}
+	/*
+	 * @OneToMany(mappedBy = "designationBean", cascade = CascadeType.ALL,
+	 * orphanRemoval = true) private List<EmployeeBean> employeeBean = new
+	 * ArrayList<EmployeeBean>();
+	 */
 
-		public void setDesignationName(String designationName) {
-			this.designationName = designationName;
-		}
-		
-		
+	// ============Setter and Getter=============//
+
+	public String getDesignationCode() {
+		return designationCode;
+	}
+
+	public void setDesignationCode(String designationCode) {
+		this.designationCode = designationCode;
+	}
+
+	public String getDesignationName() {
+		return designationName;
+	}
+
+	public void setDesignationName(String designationName) {
+		this.designationName = designationName;
+	}
+
+	/*
+	 * public List<EmployeeBean> getEmployeeBean() { return employeeBean; }
+	 * 
+	 * public void setEmployeeBean(List<EmployeeBean> employeeBean) {
+	 * this.employeeBean = employeeBean; }
+	 */
+
 }

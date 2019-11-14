@@ -8,14 +8,19 @@ import com.sv.app.bean.EmployeeBean;
 
 @Service
 public interface EmployeeService {
-	
-	public List<EmployeeBean> findAllEmployee();
-	
-	public EmployeeBean findEmployeeById(long id);
-	
-	public List<EmployeeBean> findEmployeeByName(String name);
-	
-	public EmployeeBean save(EmployeeBean employeeBean);
 
+	public EmployeeBean findLoginEmployee(String name, String password);
+
+	public int setAuthToken(String authToken, String name, String password);
+
+//    public List<EmployeeBean> findAllEmployee(String email, String password);
+
+//	public EmployeeBean findEmployeeById(int id);
+	
+	public List<EmployeeBean> findEmployeeByRequestParam(EmployeeBean employeeBean);
+
+//	public List<EmployeeBean> findEmployeeByName(String name);
+
+	public EmployeeBean save(EmployeeBean employeeBean);
 
 }
