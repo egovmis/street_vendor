@@ -8,11 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -25,9 +27,6 @@ public class VendorBean {
 	@Column(name = "vendor_id")
 	private int vendorId;
 
-	@Column(name = "name")
-	private String name;
-
 	@Column(name = "father_name")
 	private String fatherName;
 
@@ -39,12 +38,6 @@ public class VendorBean {
 	
 	@Column(name = "alternate_no")
 	private String alternateNo;
-
-	@Column(name = "dob")
-	private String dob;
-
-	@Column(name = "gender")
-	private String gender;
 
 	@Column(name = "present_address")
 	private String presentAddress;
@@ -126,14 +119,6 @@ public class VendorBean {
 		this.vendorId = vendorId;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getFatherName() {
 		return fatherName;
 	}
@@ -164,22 +149,6 @@ public class VendorBean {
 
 	public void setAlternateNo(String alternateNo) {
 		this.alternateNo = alternateNo;
-	}
-
-	public String getDob() {
-		return dob;
-	}
-
-	public void setDob(String dob) {
-		this.dob = dob;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 
 	public String getPresentAddress() {
@@ -249,6 +218,224 @@ public class VendorBean {
 	public String getMarketType() {
 		return marketType;
 	}
+
+		@Column(name="reg_uuid")
+		private String regUuid;
+		
+		
+		@Column(name="unique_application_no")
+		private String uniqueApplicationNo;
+
+		@Column(name="name")
+		private String name;
+		
+		@Column(name="dob")
+		private String dob;
+		
+		@Column(name="gender")
+		private String gender;
+		
+		@Column(name="business_type_uuid")
+		private String businessTypeUuid;
+		
+		@Column(name="address")
+		private String address;
+		
+		@Column(name="ulb_code")
+		private String ulbCode;
+		
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="opted_vending_category")
+		@JsonIgnore
+		private CategoryBean optedVendingCategory;
+		
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="allocated_vending_category")
+		@JsonIgnore
+		private CategoryBean allocatedVendingCategory;
+		
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="opted_zone")
+		@JsonIgnore
+		private VendingZoneBean optedZone;
+		
+		@OneToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="allocated_zone")
+		@JsonIgnore
+		private VendingZoneBean allocatedZone;
+		
+		@Column(name="date_of_application")
+		private String dateOfApplication;
+		
+		@Column(name="date_of_approval")
+		private String dateOfApproval;
+		
+		@Column(name="active")
+		private String active;
+		
+		@Column(name="reg_fee_payment_status")
+		private String regFeePaymentStatus;
+		
+		@Column(name="application_status")
+		private String applicationStatus;
+		
+		@Column(name="reg_valid_upto_date")
+		private String regValidUptoDate;
+		
+		@Column(name="remarks")
+		private String remarks;
+		
+	public String getRegUuid() {
+			return regUuid;
+		}
+
+		public void setRegUuid(String regUuid) {
+			this.regUuid = regUuid;
+		}
+
+		public String getUniqueApplicationNo() {
+			return uniqueApplicationNo;
+		}
+
+		public void setUniqueApplicationNo(String uniqueApplicationNo) {
+			this.uniqueApplicationNo = uniqueApplicationNo;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getDob() {
+			return dob;
+		}
+
+		public void setDob(String dob) {
+			this.dob = dob;
+		}
+
+		public String getGender() {
+			return gender;
+		}
+
+		public void setGender(String gender) {
+			this.gender = gender;
+		}
+
+		public String getBusinessTypeUuid() {
+			return businessTypeUuid;
+		}
+
+		public void setBusinessTypeUuid(String businessTypeUuid) {
+			this.businessTypeUuid = businessTypeUuid;
+		}
+
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
+
+		public String getUlbCode() {
+			return ulbCode;
+		}
+
+		public void setUlbCode(String ulbCode) {
+			this.ulbCode = ulbCode;
+		}
+
+		public CategoryBean getOptedVendingCategory() {
+			return optedVendingCategory;
+		}
+
+		public void setOptedVendingCategory(CategoryBean optedVendingCategory) {
+			this.optedVendingCategory = optedVendingCategory;
+		}
+
+		public CategoryBean getAllocatedVendingCategory() {
+			return allocatedVendingCategory;
+		}
+
+		public void setAllocatedVendingCategory(CategoryBean allocatedVendingCategory) {
+			this.allocatedVendingCategory = allocatedVendingCategory;
+		}
+
+		public VendingZoneBean getOptedZone() {
+			return optedZone;
+		}
+
+		public void setOptedZone(VendingZoneBean optedZone) {
+			this.optedZone = optedZone;
+		}
+
+		public VendingZoneBean getAllocatedZone() {
+			return allocatedZone;
+		}
+
+		public void setAllocatedZone(VendingZoneBean allocatedZone) {
+			this.allocatedZone = allocatedZone;
+		}
+
+		public String getDateOfApplication() {
+			return dateOfApplication;
+		}
+
+		public void setDateOfApplication(String dateOfApplication) {
+			this.dateOfApplication = dateOfApplication;
+		}
+
+		public String getDateOfApproval() {
+			return dateOfApproval;
+		}
+
+		public void setDateOfApproval(String dateOfApproval) {
+			this.dateOfApproval = dateOfApproval;
+		}
+
+		public String getActive() {
+			return active;
+		}
+
+		public void setActive(String active) {
+			this.active = active;
+		}
+
+		public String getRegFeePaymentStatus() {
+			return regFeePaymentStatus;
+		}
+
+		public void setRegFeePaymentStatus(String regFeePaymentStatus) {
+			this.regFeePaymentStatus = regFeePaymentStatus;
+		}
+
+		public String getApplicationStatus() {
+			return applicationStatus;
+		}
+
+		public void setApplicationStatus(String applicationStatus) {
+			this.applicationStatus = applicationStatus;
+		}
+
+		public String getRegValidUptoDate() {
+			return regValidUptoDate;
+		}
+
+		public void setRegValidUptoDate(String regValidUptoDate) {
+			this.regValidUptoDate = regValidUptoDate;
+		}
+
+		public String getRemarks() {
+			return remarks;
+		}
+
+		public void setRemarks(String remarks) {
+			this.remarks = remarks;
+		}
 
 	public void setMarketType(String marketType) {
 		this.marketType = marketType;

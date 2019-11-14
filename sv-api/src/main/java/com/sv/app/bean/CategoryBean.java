@@ -18,13 +18,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		@Id
 		@GeneratedValue(strategy=GenerationType.AUTO)
 		@Column(name="category_name")
-		private long categoryName;
+		private String categoryName;
 
-		public long getCategoryName() {
+		public String getCategoryName() {
 			return categoryName;
 		}
 
-		public void setCategoryName(long categoryName) {
+		public void setCategoryName(String categoryName) {
 			this.categoryName = categoryName;
 		}
 			   

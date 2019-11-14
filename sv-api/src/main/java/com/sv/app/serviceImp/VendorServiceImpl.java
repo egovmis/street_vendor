@@ -20,11 +20,9 @@ public class VendorServiceImpl implements VendorService{
 	public List<VendorBean> findVendorByRequestParam(VendorBean vendorBean) {
 		return (List<VendorBean>) vendorRepository.findVendorByRequestParam(vendorBean.getVendorId(), vendorBean.getName(), vendorBean.getMobileNo());
 	}
-	
+
 	@Override
 	public VendorBean save(VendorBean vendorBean) {
 		return (VendorBean) vendorRepository.save(vendorBean);
 	}
-
-
 }

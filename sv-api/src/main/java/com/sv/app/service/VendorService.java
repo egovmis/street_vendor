@@ -10,7 +10,6 @@ import com.sv.app.bean.VendorBean;
 public interface VendorService {
 	
 	public List<VendorBean> findVendorByRequestParam(VendorBean vendorBean);
-	
 	public VendorBean save(VendorBean vendorBean);
 
 }
