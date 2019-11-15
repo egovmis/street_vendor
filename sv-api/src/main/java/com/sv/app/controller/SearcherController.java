@@ -100,8 +100,9 @@ public class SearcherController {
 
 	@GetMapping(value = "/search_vendor", headers = "Accept=application/json")
 	@ResponseBody
-	public List<VendorBean> getUserById(VendorBean vendorBean) {
+	public List<VendorBean> getUserById(VendorBean vendorBean,@RequestHeader("auth_token") String auth_token) {
 		List<VendorBean> tasks = null;
+		
 		if (vendorBean.getName() == null && vendorBean.getVendorId()== 0 && vendorBean.getMobileNo()==null)
 			tasks = vendorService.findVendor();
 
