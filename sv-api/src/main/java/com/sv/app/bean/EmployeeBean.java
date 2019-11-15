@@ -22,10 +22,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
 @Table(name = "employee")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class EmployeeBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,30 +40,27 @@ public class EmployeeBean implements Serializable {
 	@Column(name = "phone_no")
 	private String phoneNo;
 
-	
-	 
-	   @ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "ulb_code", nullable = false)
-	    @OnDelete(action = OnDeleteAction.CASCADE)
-	   
-	  private ULBMasterBean ulbBean;
-	   
-	   @ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "designation_code", nullable = false)
-	    @OnDelete(action = OnDeleteAction.CASCADE)
-	   
-	   private DesignationBean designationBean;
-	  
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ulb_code", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+
+	private ULBMasterBean ulbBean;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "designation_code", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private DesignationBean designationBean;
+
 	/*
 	 * @ManyToOne(fetch = FetchType.LAZY)
 	 * 
-	 * @JoinColumn(name = "designation_code") private DesignationBean designationBean;
+	 * @JoinColumn(name = "designation_code") private DesignationBean
+	 * designationBean;
 	 */
-	 
 
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "auth_token")
 	private String authToken;
 
@@ -97,22 +93,21 @@ public class EmployeeBean implements Serializable {
 		this.phoneNo = phoneNo;
 	}
 
-	
-	
-	
-	  public ULBMasterBean getUlbBean() { return ulbBean; }
-	  
-	  public void setUlbBean(ULBMasterBean ulbBean) { this.ulbBean = ulbBean; }
-	  
-	  
-	 
+	public ULBMasterBean getUlbBean() {
+		return ulbBean;
+	}
+
+	public void setUlbBean(ULBMasterBean ulbBean) {
+		this.ulbBean = ulbBean;
+	}
+
 	/*
 	 * public DesignationBean getDesignationBean() { return designationBean; }
 	 * 
 	 * public void setDesignationBean(DesignationBean designationBean) {
 	 * this.designationBean = designationBean; }
 	 */
-	 
+
 	/*
 	 * public List<ULBMasterBean> getUlbBean() { return ulbBean; }
 	 * 
@@ -135,8 +130,6 @@ public class EmployeeBean implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 	public String getAuthToken() {
 		return authToken;
@@ -164,9 +157,5 @@ public class EmployeeBean implements Serializable {
 		return "EmployeeBean [empId=" + empId + ", name=" + name + ", phoneNo=" + phoneNo + ", password=" + password
 				+ ", authToken=" + authToken + ", active=" + active + "]";
 	}
-
-
-	
-	
 
 }

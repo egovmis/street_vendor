@@ -27,7 +27,7 @@ public class FamilyMemberBean {
 		@ManyToOne(fetch = FetchType.LAZY)
 	  	@JoinColumn(name = "reg_uuid", nullable = false)
 	    @JsonIgnore 
-	    private RGVendorBean vendorRegID ;
+	    private VendorBean vendorRegID ;
 	
 
 		@Column(name="name")

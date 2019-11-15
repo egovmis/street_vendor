@@ -14,7 +14,10 @@ public class VendorServiceImpl implements VendorService{
 	
 	@Autowired
 	VendorRepository vendorRepository;
-	
+	@Override
+	public List<VendorBean> findVendor() {
+		return (List<VendorBean>) vendorRepository.findVendor();
+	}
 
 	@Override
 	public List<VendorBean> findVendorByRequestParam(VendorBean vendorBean) {

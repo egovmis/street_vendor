@@ -1,13 +1,17 @@
 package com.sv.app.serviceImp;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sv.app.bean.VendingTypeBean;
 import com.sv.app.service.VendingSiteService;
 
 @Service
 @Transactional
 public class VendingSiteServiceImp implements VendingSiteService{
+
 	/*
 	 * @Autowired StaffRepository staffRepository;
 	 * 

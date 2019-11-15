@@ -13,14 +13,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sv.app.bean.CategoryMasterBean;
+import com.sv.app.bean.EQMasterBean;
 import com.sv.app.bean.EmployeeBean;
 import com.sv.app.bean.IncomeCatMasterBean;
+import com.sv.app.bean.MktTypeMasterBean;
 import com.sv.app.bean.ULBMasterBean;
+import com.sv.app.bean.VendingCategoryBean;
+import com.sv.app.bean.VendingTypeBean;
+import com.sv.app.bean.VendingZoneBean;
 import com.sv.app.bean.VendorBean;
 import com.sv.app.service.CategoryMasterService;
+import com.sv.app.service.EQService;
 import com.sv.app.service.EmployeeService;
 import com.sv.app.service.IncomeCatMasterService;
+import com.sv.app.service.MarketTypeService;
 import com.sv.app.service.ULBMasterService;
+import com.sv.app.service.VendingCategoryService;
+import com.sv.app.service.VendingTypeService;
+import com.sv.app.service.VendingZoneService;
 import com.sv.app.service.VendorService;
 
 @RestController
@@ -41,6 +51,21 @@ public class SearcherController {
 
 	@Autowired
 	IncomeCatMasterService incomeCatMasterService;
+
+	@Autowired
+	VendingTypeService vendingTypeService;
+
+	@Autowired
+	MarketTypeService marketTypeService;
+
+	@Autowired
+	VendingZoneService vendingZoneService;
+
+	@Autowired
+	VendingCategoryService vendingCategoryService;
+
+	@Autowired
+	EQService eQService;
 
 	@PostMapping(value = "/login_employee", headers = "Accept=application/json")
 	@ResponseBody
@@ -76,7 +101,12 @@ public class SearcherController {
 	@GetMapping(value = "/search_vendor", headers = "Accept=application/json")
 	@ResponseBody
 	public List<VendorBean> getUserById(VendorBean vendorBean) {
-		List<VendorBean> tasks = vendorService.findVendorByRequestParam(vendorBean);
+		List<VendorBean> tasks = null;
+		if (vendorBean.getName() == null && vendorBean.getVendorId()== 0 && vendorBean.getMobileNo()==null)
+			tasks = vendorService.findVendor();
+
+		else
+			tasks = vendorService.findVendorByRequestParam(vendorBean);
 		return tasks;
 
 	}
@@ -105,4 +135,51 @@ public class SearcherController {
 
 	}
 
+	@GetMapping(value = "/search_vending_type", headers = "Accept=application/json")
+	@ResponseBody
+	public List<VendingTypeBean> getVendingType() {
+		List<VendingTypeBean> tasks = vendingTypeService.getAllVendingType();
+		return tasks;
+
+	}
+
+	@GetMapping(value = "/search_market_type", headers = "Accept=application/json")
+	@ResponseBody
+	public List<MktTypeMasterBean> getMarketType() {
+		List<MktTypeMasterBean> tasks = marketTypeService.getAllMarketType();
+		return tasks;
+
+	}
+
+	@GetMapping(value = "/search_uid_type", headers = "Accept=application/json")
+	@ResponseBody
+	public List<MktTypeMasterBean> getUIDType() {
+		List<MktTypeMasterBean> tasks = marketTypeService.getAllMarketType();
+		return tasks;
+
+	}
+
+	@GetMapping(value = "/search_vending_zone", headers = "Accept=application/json")
+	@ResponseBody
+	public List<VendingZoneBean> getVendingZones() {
+		List<VendingZoneBean> tasks = vendingZoneService.getAllVendingZones();
+		return tasks;
+
+	}
+
+	@GetMapping(value = "/search_vending_category", headers = "Accept=application/json")
+	@ResponseBody
+	public List<VendingCategoryBean> getVendingCategory() {
+		List<VendingCategoryBean> tasks = vendingCategoryService.getAllVendingCategory();
+		return tasks;
+
+	}
+
+	@GetMapping(value = "/search_edu_qualification", headers = "Accept=application/json")
+	@ResponseBody
+	public List<EQMasterBean> getEduQualification() {
+		List<EQMasterBean> tasks = eQService.getAllEduQual();
+		return tasks;
+
+	}
 }
