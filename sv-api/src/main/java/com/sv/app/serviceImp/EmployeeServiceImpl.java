@@ -59,4 +59,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return (EmployeeBean) employeeRepository.save(employeeBean);
 	}
 
+	@Override
+	public EmployeeBean findbyAuthToken(String auth_token) {
+		return (EmployeeBean) employeeRepository.findByAuthToken(auth_token);
+	}
+	
+
 }

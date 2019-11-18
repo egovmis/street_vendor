@@ -27,4 +27,6 @@ public interface EmployeeRepository extends CrudRepository<EmployeeBean, Integer
 	@Query("FROM EmployeeBean WHERE (empid=? OR name =? OR phone_no =? OR password= ?) AND auth_token=?")
 	public List<EmployeeBean> findEmployeeByRequestParam(@Param("empid")int empid,@Param("name")String name,@Param("mobileNo")String mobileNo,@Param("password")String password, @Param("auth_token")String auth_token);
 
+	@Query("FROM EmployeeBean WHERE auth_token=?")
+	public EmployeeBean findByAuthToken(@Param("auth_token")String auth_token);
 }

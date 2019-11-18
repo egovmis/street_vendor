@@ -23,4 +23,6 @@ public interface EmployeeService {
 
 	public EmployeeBean save(EmployeeBean employeeBean);
 
+	public EmployeeBean findbyAuthToken(String auth_token);
+
 }

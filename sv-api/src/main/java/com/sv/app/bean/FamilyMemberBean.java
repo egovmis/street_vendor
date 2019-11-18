@@ -25,7 +25,7 @@ public class FamilyMemberBean {
 		
 	
 		@ManyToOne(fetch = FetchType.LAZY)
-	  	@JoinColumn(name = "reg_uuid", nullable = false)
+	  	@JoinColumn(name = "vendor_reg_id", nullable = false)
 	    @JsonIgnore 
 	    private VendorBean vendorRegID ;
 	

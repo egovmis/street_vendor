@@ -13,11 +13,17 @@ import com.sv.app.bean.VendorBean;
 public interface VendorRepository extends CrudRepository<VendorBean, Integer>{
 
 	
-	@Query("FROM VendorBean WHERE (vendor_id=? OR name =? OR mobile_no =?)")
-	public List<VendorBean> findVendorByRequestParam(@Param("vendor_id")long vendor_id, @Param("name")String name, @Param("mobile_no")String mobile_no);
+	@Query("FROM VendorBean WHERE (vendor_id=? OR name =? OR mobile_no =?) and ulb_code=?")
+	public List<VendorBean> findVendorByRequestParam(@Param("vendor_id")long vendor_id, @Param("name")String name, @Param("mobile_no")String mobile_no, @Param("ulb_code")String ulb_code);
 
-	@Query("FROM VendorBean")
-	public List<VendorBean> findVendor();
+	@Query("FROM VendorBean where ulb_code=?")
+	public List<VendorBean> findVendor(@Param("ulb_code")String ulb_code);
 
+	@Query("FROM VendorBean where vendor_id=?")
+	public VendorBean findById(@Param("vendor_id")int vendor_id);
 
+	/*
+	 * @Query("UPDATE VendorBean where vendor_id=?") public VendorBean
+	 * update(@Param("vendorBean")VendorBean vendorBea);
+	 */
 }

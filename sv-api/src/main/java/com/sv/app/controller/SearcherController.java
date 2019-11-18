@@ -113,11 +113,17 @@ public class SearcherController {
 	public List<VendorBean> getUserById(VendorBean vendorBean,@RequestHeader("auth_token") String auth_token) {
 		List<VendorBean> response = null;
 		
+		EmployeeBean employeeBean=employeeService.findbyAuthToken(auth_token);
+		if(employeeBean!=null)
+		{
+		
 		if (vendorBean.getName() == null && vendorBean.getVendorId()== 0 && vendorBean.getMobileNo()==null)
-			response = vendorService.findVendor();
+			response = vendorService.findVendor(employeeBean.getUlbBean());
 
 		else
-			response = vendorService.findVendorByRequestParam(vendorBean);
+			response = vendorService.findVendorByRequestParam(vendorBean,employeeBean.getUlbBean());
+		}
+		
 		return response;
 
 	}

@@ -1,7 +1,10 @@
 package com.sv.app.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,19 +13,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "vendor")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class VendorBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -162,9 +171,31 @@ public class VendorBean implements Serializable {
 
 	@Column(name = "active")
 	private String active;
+	/*
+	 * @OrderBy("document_id")
+	 * 
+	 * @OneToMany(mappedBy = "vendorBean", cascade = CascadeType.ALL, fetch
+	 * =FetchType.LAZY) private List<AttachedDocumentBean> attachedDocument = new
+	 * ArrayList<>(0);
+	 */
+	/*
+	 * @OrderBy("id")
+	 * 
+	 * @OneToMany(mappedBy = "vendor_id", cascade = CascadeType.ALL, fetch =
+	 * FetchType.LAZY) private List<FamilyMemberBean> familyMembers = new
+	 * ArrayList<>(0);
+	 */
 
 	public int getVendorId() {
 		return vendorId;
+	}
+
+	public MktTypeMasterBean getMarketType() {
+		return marketType;
+	}
+
+	public void setMarketType(MktTypeMasterBean marketType) {
+		this.marketType = marketType;
 	}
 
 	public void setVendorId(int vendorId) {
