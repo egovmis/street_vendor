@@ -21,6 +21,7 @@ com\sv\app\service\IncomeCatMasterService.class
 com\sv\app\Application.class
 com\sv\app\serviceImp\CategoryMasterServiceImp.class
 com\sv\app\bean\VendorBean.class
+com\sv\app\serviceImp\AnnualIncomeMasterServiceImpl.class
 com\sv\app\repository\EQRepository.class
 com\sv\app\repository\VendingZoneRepository.class
 com\sv\app\reqRes\UserResponse.class
@@ -32,7 +33,9 @@ com\sv\app\repository\ULBMasterRepository.class
 com\sv\app\repository\DocumentMasterRepository.class
 com\sv\app\bean\DesignationBean.class
 com\sv\app\bean\DocumentMasterBean.class
+com\sv\app\service\AnnualIncomeMasterService.class
 com\sv\app\serviceImp\VendorServiceImpl.class
+com\sv\app\bean\AnnualIncomeMasterBean.class
 com\sv\app\repository\ApplicationStatusRepository.class
 com\sv\app\service\VendingCategoryService.class
 com\sv\app\service\BussinessTypeService.class
@@ -40,6 +43,7 @@ com\sv\app\bean\EmployeeBean.class
 com\sv\app\reqRes\UserRequest.class
 com\sv\app\repository\IncomeCatMasterRepository.class
 com\sv\app\bean\MonthlyPaymentsBean.class
+com\sv\app\repository\AnnualIncomeMasterRepository.class
 com\sv\app\service\FamilyMemberService.class
 com\sv\app\bean\AttachedDocumentBean.class
 com\sv\app\service\EQService.class

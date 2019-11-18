@@ -28,16 +28,16 @@ public class PersisterController {
 	@ResponseBody
 	public EmployeeBean createEmployee(@Valid @RequestBody final EmployeeBean employeeBean) {
 		EmployeeBean empBean = employeeBean;
-		EmployeeBean tasks = employeeService.save(empBean);
-		return tasks;
+		EmployeeBean response = employeeService.save(empBean);
+		return response;
 	}
 	
 	@PostMapping(value = "/reg-vendor", headers = "Accept=application/json")
 	@ResponseBody
 	public VendorBean registerVendor(@Valid @RequestBody final VendorBean vendorBean) {
 		VendorBean VenBean = vendorBean;
-		VendorBean tasks = vendorService.save(VenBean);
-		return tasks;
+		VendorBean response = vendorService.save(VenBean);
+		return response;
 
 	}
 

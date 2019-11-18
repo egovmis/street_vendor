@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sv.app.bean.AnnualIncomeMasterBean;
 import com.sv.app.bean.CategoryMasterBean;
+import com.sv.app.bean.DocumentMasterBean;
 import com.sv.app.bean.EQMasterBean;
 import com.sv.app.bean.EmployeeBean;
 import com.sv.app.bean.IncomeCatMasterBean;
@@ -22,7 +24,9 @@ import com.sv.app.bean.VendingCategoryBean;
 import com.sv.app.bean.VendingTypeBean;
 import com.sv.app.bean.VendingZoneBean;
 import com.sv.app.bean.VendorBean;
+import com.sv.app.service.AnnualIncomeMasterService;
 import com.sv.app.service.CategoryMasterService;
+import com.sv.app.service.DocumentMasterService;
 import com.sv.app.service.EQService;
 import com.sv.app.service.EmployeeService;
 import com.sv.app.service.IncomeCatMasterService;
@@ -57,6 +61,9 @@ public class SearcherController {
 
 	@Autowired
 	MarketTypeService marketTypeService;
+	
+	@Autowired
+	DocumentMasterService documentMasterService;
 
 	@Autowired
 	VendingZoneService vendingZoneService;
@@ -66,6 +73,9 @@ public class SearcherController {
 
 	@Autowired
 	EQService eQService;
+
+	@Autowired
+	AnnualIncomeMasterService annualIncomeMasterService;
 
 	@PostMapping(value = "/login_employee", headers = "Accept=application/json")
 	@ResponseBody
@@ -92,95 +102,103 @@ public class SearcherController {
 	@ResponseBody
 	public List<EmployeeBean> getUserById(EmployeeBean employeeBean, @RequestHeader("auth_token") String auth_token) {
 		employeeBean.setAuthToken(auth_token);
-		List<EmployeeBean> tasks = employeeService.findEmployeeByRequestParam(employeeBean);
+		List<EmployeeBean> response = employeeService.findEmployeeByRequestParam(employeeBean);
 
-		return tasks;
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_vendor", headers = "Accept=application/json")
 	@ResponseBody
 	public List<VendorBean> getUserById(VendorBean vendorBean,@RequestHeader("auth_token") String auth_token) {
-		List<VendorBean> tasks = null;
+		List<VendorBean> response = null;
 		
 		if (vendorBean.getName() == null && vendorBean.getVendorId()== 0 && vendorBean.getMobileNo()==null)
-			tasks = vendorService.findVendor();
+			response = vendorService.findVendor();
 
 		else
-			tasks = vendorService.findVendorByRequestParam(vendorBean);
-		return tasks;
+			response = vendorService.findVendorByRequestParam(vendorBean);
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_ulb", headers = "Accept=application/json")
 	@ResponseBody
 	public List<ULBMasterBean> getULB() {
-		List<ULBMasterBean> tasks = ulbMasterService.getAllUlb();
-		return tasks;
+		List<ULBMasterBean> response = ulbMasterService.getAllUlb();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_category", headers = "Accept=application/json")
 	@ResponseBody
 	public List<CategoryMasterBean> getCategory() {
-		List<CategoryMasterBean> tasks = categoryMasterService.getAllCategory();
-		return tasks;
+		List<CategoryMasterBean> response = categoryMasterService.getAllCategory();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_inc_category", headers = "Accept=application/json")
 	@ResponseBody
 	public List<IncomeCatMasterBean> getIncCategory() {
-		List<IncomeCatMasterBean> tasks = incomeCatMasterService.getAllIncCategory();
-		return tasks;
+		List<IncomeCatMasterBean> response = incomeCatMasterService.getAllIncCategory();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_vending_type", headers = "Accept=application/json")
 	@ResponseBody
 	public List<VendingTypeBean> getVendingType() {
-		List<VendingTypeBean> tasks = vendingTypeService.getAllVendingType();
-		return tasks;
+		List<VendingTypeBean> response = vendingTypeService.getAllVendingType();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_market_type", headers = "Accept=application/json")
 	@ResponseBody
 	public List<MktTypeMasterBean> getMarketType() {
-		List<MktTypeMasterBean> tasks = marketTypeService.getAllMarketType();
-		return tasks;
+		List<MktTypeMasterBean> response = marketTypeService.getAllMarketType();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_uid_type", headers = "Accept=application/json")
 	@ResponseBody
-	public List<MktTypeMasterBean> getUIDType() {
-		List<MktTypeMasterBean> tasks = marketTypeService.getAllMarketType();
-		return tasks;
+	public List<DocumentMasterBean> getUIDType() {
+		List<DocumentMasterBean> response = documentMasterService.getAllUIDType();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_vending_zone", headers = "Accept=application/json")
 	@ResponseBody
 	public List<VendingZoneBean> getVendingZones() {
-		List<VendingZoneBean> tasks = vendingZoneService.getAllVendingZones();
-		return tasks;
+		List<VendingZoneBean> response = vendingZoneService.getAllVendingZones();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_vending_category", headers = "Accept=application/json")
 	@ResponseBody
 	public List<VendingCategoryBean> getVendingCategory() {
-		List<VendingCategoryBean> tasks = vendingCategoryService.getAllVendingCategory();
-		return tasks;
+		List<VendingCategoryBean> response = vendingCategoryService.getAllVendingCategory();
+		return response;
 
 	}
 
 	@GetMapping(value = "/search_edu_qualification", headers = "Accept=application/json")
 	@ResponseBody
 	public List<EQMasterBean> getEduQualification() {
-		List<EQMasterBean> tasks = eQService.getAllEduQual();
-		return tasks;
+		List<EQMasterBean> response = eQService.getAllEduQual();
+		return response;
+
+	}
+	
+	@GetMapping(value = "/search_annual_income", headers = "Accept=application/json")
+	@ResponseBody
+	public List<AnnualIncomeMasterBean> getAnnualIncome() {
+		List<AnnualIncomeMasterBean> response = annualIncomeMasterService.getAllAnnualIncome();
+		return response;
 
 	}
 }
