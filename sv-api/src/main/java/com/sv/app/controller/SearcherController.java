@@ -21,6 +21,7 @@ import com.sv.app.bean.IncomeCatMasterBean;
 import com.sv.app.bean.MktTypeMasterBean;
 import com.sv.app.bean.ULBMasterBean;
 import com.sv.app.bean.VendingCategoryBean;
+import com.sv.app.bean.VendingTimeBean;
 import com.sv.app.bean.VendingTypeBean;
 import com.sv.app.bean.VendingZoneBean;
 import com.sv.app.bean.VendorBean;
@@ -33,6 +34,7 @@ import com.sv.app.service.IncomeCatMasterService;
 import com.sv.app.service.MarketTypeService;
 import com.sv.app.service.ULBMasterService;
 import com.sv.app.service.VendingCategoryService;
+import com.sv.app.service.VendingTimeService;
 import com.sv.app.service.VendingTypeService;
 import com.sv.app.service.VendingZoneService;
 import com.sv.app.service.VendorService;
@@ -61,7 +63,7 @@ public class SearcherController {
 
 	@Autowired
 	MarketTypeService marketTypeService;
-	
+
 	@Autowired
 	DocumentMasterService documentMasterService;
 
@@ -70,6 +72,9 @@ public class SearcherController {
 
 	@Autowired
 	VendingCategoryService vendingCategoryService;
+
+	@Autowired
+	VendingTimeService vendingTimeService;
 
 	@Autowired
 	EQService eQService;
@@ -110,100 +115,142 @@ public class SearcherController {
 
 	@GetMapping(value = "/search_vendor", headers = "Accept=application/json")
 	@ResponseBody
-	public List<VendorBean> getUserById(VendorBean vendorBean,@RequestHeader("auth_token") String auth_token) {
+	public List<VendorBean> getUserById(VendorBean vendorBean, @RequestHeader("auth_token") String auth_token) {
 		List<VendorBean> response = null;
-		
-		EmployeeBean employeeBean=employeeService.findbyAuthToken(auth_token);
-		if(employeeBean!=null)
-		{
-		
-		if (vendorBean.getName() == null && vendorBean.getVendorId()== 0 && vendorBean.getMobileNo()==null)
-			response = vendorService.findVendor(employeeBean.getUlbBean());
+		try {
+			EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+			if (employeeBean != null && employeeBean.getName() != null) {
 
-		else
-			response = vendorService.findVendorByRequestParam(vendorBean,employeeBean.getUlbBean());
+				if (vendorBean.getName() == null && vendorBean.getVendorId() == 0 && vendorBean.getMobileNo() == null)
+					response = vendorService.findVendor(employeeBean.getUlbBean());
+
+				else
+					response = vendorService.findVendorByRequestParam(vendorBean, employeeBean.getUlbBean());
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception is " + e.toString());
 		}
-		
+
 		return response;
 
 	}
 
 	@GetMapping(value = "/search_ulb", headers = "Accept=application/json")
 	@ResponseBody
-	public List<ULBMasterBean> getULB() {
-		List<ULBMasterBean> response = ulbMasterService.getAllUlb();
+	public List<ULBMasterBean> getULB(@RequestHeader("auth_token") String auth_token) {
+		List<ULBMasterBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = ulbMasterService.getAllUlb();
 		return response;
 
 	}
 
 	@GetMapping(value = "/search_category", headers = "Accept=application/json")
 	@ResponseBody
-	public List<CategoryMasterBean> getCategory() {
-		List<CategoryMasterBean> response = categoryMasterService.getAllCategory();
+	public List<CategoryMasterBean> getCategory(@RequestHeader("auth_token") String auth_token) {
+		List<CategoryMasterBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = categoryMasterService.getAllCategory();
 		return response;
 
 	}
 
 	@GetMapping(value = "/search_inc_category", headers = "Accept=application/json")
 	@ResponseBody
-	public List<IncomeCatMasterBean> getIncCategory() {
-		List<IncomeCatMasterBean> response = incomeCatMasterService.getAllIncCategory();
+	public List<IncomeCatMasterBean> getIncCategory(@RequestHeader("auth_token") String auth_token) {
+		List<IncomeCatMasterBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = incomeCatMasterService.getAllIncCategory();
 		return response;
 
 	}
 
 	@GetMapping(value = "/search_vending_type", headers = "Accept=application/json")
 	@ResponseBody
-	public List<VendingTypeBean> getVendingType() {
-		List<VendingTypeBean> response = vendingTypeService.getAllVendingType();
+	public List<VendingTypeBean> getVendingType(@RequestHeader("auth_token") String auth_token) {
+		List<VendingTypeBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = vendingTypeService.getAllVendingType();
 		return response;
-
 	}
 
 	@GetMapping(value = "/search_market_type", headers = "Accept=application/json")
 	@ResponseBody
-	public List<MktTypeMasterBean> getMarketType() {
-		List<MktTypeMasterBean> response = marketTypeService.getAllMarketType();
+	public List<MktTypeMasterBean> getMarketType(@RequestHeader("auth_token") String auth_token) {
+		List<MktTypeMasterBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = marketTypeService.getAllMarketType();
 		return response;
 
 	}
 
 	@GetMapping(value = "/search_uid_type", headers = "Accept=application/json")
 	@ResponseBody
-	public List<DocumentMasterBean> getUIDType() {
-		List<DocumentMasterBean> response = documentMasterService.getAllUIDType();
+	public List<DocumentMasterBean> getUIDType(@RequestHeader("auth_token") String auth_token) {
+		List<DocumentMasterBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = documentMasterService.getAllUIDType();
 		return response;
 
 	}
 
 	@GetMapping(value = "/search_vending_zone", headers = "Accept=application/json")
 	@ResponseBody
-	public List<VendingZoneBean> getVendingZones() {
-		List<VendingZoneBean> response = vendingZoneService.getAllVendingZones();
+	public List<VendingZoneBean> getVendingZones(@RequestHeader("auth_token") String auth_token) {
+		List<VendingZoneBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = vendingZoneService.getAllVendingZones();
 		return response;
 
 	}
 
 	@GetMapping(value = "/search_vending_category", headers = "Accept=application/json")
 	@ResponseBody
-	public List<VendingCategoryBean> getVendingCategory() {
-		List<VendingCategoryBean> response = vendingCategoryService.getAllVendingCategory();
+	public List<VendingCategoryBean> getVendingCategory(@RequestHeader("auth_token") String auth_token) {
+		List<VendingCategoryBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = vendingCategoryService.getAllVendingCategory();
 		return response;
-
 	}
 
 	@GetMapping(value = "/search_edu_qualification", headers = "Accept=application/json")
 	@ResponseBody
-	public List<EQMasterBean> getEduQualification() {
-		List<EQMasterBean> response = eQService.getAllEduQual();
+	public List<EQMasterBean> getEduQualification(@RequestHeader("auth_token") String auth_token) {
+		List<EQMasterBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = eQService.getAllEduQual();
+		return response;
+	}
+
+	@GetMapping(value = "/search_annual_income", headers = "Accept=application/json")
+	@ResponseBody
+	public List<AnnualIncomeMasterBean> getAnnualIncome(@RequestHeader("auth_token") String auth_token) {
+		List<AnnualIncomeMasterBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = annualIncomeMasterService.getAllAnnualIncome();
 		return response;
 
 	}
-	
-	@GetMapping(value = "/search_annual_income", headers = "Accept=application/json")
+
+	@GetMapping(value = "/search_vending_time", headers = "Accept=application/json")
 	@ResponseBody
-	public List<AnnualIncomeMasterBean> getAnnualIncome() {
-		List<AnnualIncomeMasterBean> response = annualIncomeMasterService.getAllAnnualIncome();
+	public List<VendingTimeBean> getVendingTime(@RequestHeader("auth_token") String auth_token) {
+		List<VendingTimeBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = vendingTimeService.getAllVendingTime();
 		return response;
 
 	}

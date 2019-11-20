@@ -83,8 +83,10 @@ public class VendorBean implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private VendingTypeBean vendingType;
 
-	@Column(name = "vending_time")
-	private String vendingTime;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "vending_time", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private VendingTimeBean vendingTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "market_type", nullable = false)
@@ -171,21 +173,7 @@ public class VendorBean implements Serializable {
 
 	@Column(name = "active")
 	private String active;
-	/*
-	 * @OrderBy("document_id")
-	 * 
-	 * @OneToMany(mappedBy = "vendorBean", cascade = CascadeType.ALL, fetch
-	 * =FetchType.LAZY) private List<AttachedDocumentBean> attachedDocument = new
-	 * ArrayList<>(0);
-	 */
-	/*
-	 * @OrderBy("id")
-	 * 
-	 * @OneToMany(mappedBy = "vendor_id", cascade = CascadeType.ALL, fetch =
-	 * FetchType.LAZY) private List<FamilyMemberBean> familyMembers = new
-	 * ArrayList<>(0);
-	 */
-
+	
 	public int getVendorId() {
 		return vendorId;
 	}
@@ -306,11 +294,11 @@ public class VendorBean implements Serializable {
 		this.vendingType = vendingType;
 	}
 
-	public String getVendingTime() {
+	public VendingTimeBean getVendingTime() {
 		return vendingTime;
 	}
 
-	public void setVendingTime(String vendingTime) {
+	public void setVendingTime(VendingTimeBean vendingTime) {
 		this.vendingTime = vendingTime;
 	}
 

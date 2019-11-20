@@ -13,6 +13,7 @@ com\sv\app\bean\VendingCategoryBean.class
 com\sv\app\serviceImp\MarketTypeServiceImp.class
 com\sv\app\repository\MarketTypeRepository.class
 com\sv\app\bean\TransactionBean.class
+com\sv\app\serviceImp\AttachedDocumentServiceImp.class
 com\sv\app\bean\VendingTypeBean.class
 com\sv\app\service\EmployeeService.class
 com\sv\app\repository\VendorRepository.class
@@ -23,6 +24,7 @@ com\sv\app\serviceImp\CategoryMasterServiceImp.class
 com\sv\app\bean\VendorBean.class
 com\sv\app\serviceImp\AnnualIncomeMasterServiceImpl.class
 com\sv\app\repository\EQRepository.class
+com\sv\app\serviceImp\VendingTimeServiceImp.class
 com\sv\app\repository\VendingZoneRepository.class
 com\sv\app\reqRes\UserResponse.class
 com\sv\app\bean\CategoryMasterBean.class
@@ -47,6 +49,7 @@ com\sv\app\repository\AnnualIncomeMasterRepository.class
 com\sv\app\service\FamilyMemberService.class
 com\sv\app\bean\AttachedDocumentBean.class
 com\sv\app\service\EQService.class
+com\sv\app\repository\VendingTimeRepository.class
 com\sv\app\service\MarketTypeService.class
 com\sv\app\bean\FamilyMemberBean.class
 com\sv\app\repository\CategoryMasterRepository.class
@@ -54,19 +57,23 @@ com\sv\app\serviceImp\VendingZoneServiceImp.class
 com\sv\app\serviceImp\EmployeeServiceImpl.class
 com\sv\app\service\CategoryMasterService.class
 com\sv\app\service\ApplicationStatusService.class
+com\sv\app\repository\AttachedDocumentRepository.class
 com\sv\app\repository\EmployeeRepository.class
 com\sv\app\service\DocumentMasterService.class
 com\sv\app\serviceImp\IncomeCatMasterServiceImp.class
 com\sv\app\repository\BussinessTypeRepository.class
 com\sv\app\service\ULBMasterService.class
+com\sv\app\service\VendingTimeService.class
 com\sv\app\repository\FamilyMasterRepository.class
 com\sv\app\bean\ApplicationStatusBean.class
 com\sv\app\util\ErrorConstant.class
+com\sv\app\service\AttachedDocumentService.class
 com\sv\app\bean\VendingSiteBean.class
 com\sv\app\bean\VendingZoneBean.class
 com\sv\app\repository\VendingCategoryRepository.class
 com\sv\app\serviceImp\BussinessTypeServiceImp.class
 com\sv\app\bean\EQMasterBean.class
+com\sv\app\bean\VendingTimeBean.class
 com\sv\app\repository\VendingSiteRepository.class
 com\sv\app\repository\VendingTypeRepository.class
 com\sv\app\controller\SearcherController.class
