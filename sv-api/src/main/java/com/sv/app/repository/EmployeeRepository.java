@@ -16,17 +16,17 @@ public interface EmployeeRepository extends CrudRepository<EmployeeBean, Integer
 	
 	  @Modifying
 	    @Transactional
-	@Query("UPDATE EmployeeBean SET auth_token=? WHERE name=? AND password=?")
+	@Query("UPDATE EmployeeBean SET auth_token=:auth_token WHERE name=:name AND password=:password")
 	public int setAuthToken(@Param("auth_token")String auth_token, @Param("name")String name, @Param("password")String password);
 	
 
-	@Query("FROM EmployeeBean WHERE name=? AND password=?")
+	@Query("FROM EmployeeBean WHERE name=:name AND password=:password")
 	public EmployeeBean loginValidate(@Param("name")String name, @Param("password")String password);
 
 	
-	@Query("FROM EmployeeBean WHERE (empid=? OR name =? OR phone_no =? OR password= ?) AND auth_token=?")
+	@Query("FROM EmployeeBean WHERE (empid=:empid OR name =:name OR phone_no =:mobileNo OR password= :password) AND auth_token= :auth_token")
 	public List<EmployeeBean> findEmployeeByRequestParam(@Param("empid")int empid,@Param("name")String name,@Param("mobileNo")String mobileNo,@Param("password")String password, @Param("auth_token")String auth_token);
 
-	@Query("FROM EmployeeBean WHERE auth_token=?")
+	@Query("FROM EmployeeBean WHERE auth_token=:auth_token")
 	public EmployeeBean findByAuthToken(@Param("auth_token")String auth_token);
 }

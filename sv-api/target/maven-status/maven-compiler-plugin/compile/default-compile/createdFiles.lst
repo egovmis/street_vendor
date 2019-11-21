@@ -1,6 +1,7 @@
 com\sv\app\bean\IncomeCatMasterBean.class
 com\sv\app\serviceImp\VendingTypeServiceImp.class
 com\sv\app\service\VendingZoneService.class
+com\sv\app\util\DatabaseSequenceCreator.class
 com\sv\app\bean\MktTypeMasterBean.class
 com\sv\app\serviceImp\VendingSiteServiceImp.class
 com\sv\app\serviceImp\ULBMasterServiceImp.class
@@ -26,6 +27,7 @@ com\sv\app\serviceImp\AnnualIncomeMasterServiceImpl.class
 com\sv\app\repository\EQRepository.class
 com\sv\app\serviceImp\VendingTimeServiceImp.class
 com\sv\app\repository\VendingZoneRepository.class
+com\sv\app\util\DatabaseSequenceProvider.class
 com\sv\app\reqRes\UserResponse.class
 com\sv\app\bean\CategoryMasterBean.class
 com\sv\app\serviceImp\ApplicationStatusServiceImp.class

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sv.app.bean.ApplicationStatusBean;
+import com.sv.app.bean.EmployeeBean;
 import com.sv.app.bean.ULBMasterBean;
 import com.sv.app.bean.VendorBean;
 import com.sv.app.repository.VendorRepository;
@@ -34,6 +36,28 @@ public class VendorServiceImpl implements VendorService{
 	public VendorBean findVendorById(int vendorID) {
 		return (VendorBean) vendorRepository.findById(vendorID);
 	}
+	/*
+	 * @Override public int getNextSequence(String sequenceName) { return
+	 * vendorRepository.getNextSequence(sequenceName); }
+	 * 
+	 * @Override public void createSequence(String sequenceName) {
+	 * vendorRepository.createSequence(sequenceName);
+	 * 
+	 * }
+	 */
+
+	@Override
+	public List<VendorBean> getVendorByEmployeeandStatus(EmployeeBean employeeBean, ApplicationStatusBean status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * @Override public List<VendorBean> getVendorByEmployeeandStatus(EmployeeBean
+	 * employeeBean, ApplicationStatusBean status) { return (List<VendorBean>)
+	 * vendorRepository.getVendorByEmployeeandStatus(employeeBean.getEmpId(),status.
+	 * getStatusCode()) }
+	 */
 
 	/*
 	 * @Override public VendorBean update(VendorBean vendorBean) { return

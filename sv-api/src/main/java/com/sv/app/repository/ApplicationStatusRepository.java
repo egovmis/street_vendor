@@ -8,7 +8,7 @@ import com.sv.app.bean.ApplicationStatusBean;
 
 public interface ApplicationStatusRepository extends CrudRepository<ApplicationStatusBean, Long>{
 
-	@Query("FROM ApplicationStatusBean where status_code=?")
+	@Query("FROM ApplicationStatusBean where status_code=:status_code")
 	public ApplicationStatusBean getStatusByCode(@Param("status_code")String status_code);
 	
 	/*

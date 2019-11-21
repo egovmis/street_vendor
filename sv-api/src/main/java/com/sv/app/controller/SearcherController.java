@@ -102,6 +102,19 @@ public class SearcherController {
 		return employeeBean;
 
 	}
+	@PostMapping(value = "/logout_employee", headers = "Accept=application/json")
+	@ResponseBody
+	public String getLogoutUser(@RequestHeader("auth_token") String auth_token) {
+		EmployeeBean employeeBean=employeeService.findbyAuthToken(auth_token);
+		if(employeeBean !=null)
+		{
+			int status=employeeService.setAuthToken(null,employeeBean.getName(),employeeBean.getPassword());
+			
+			return "Employee Successfully logged out";}
+		
+		return "Employee does not exists ";
+	
+	}
 
 	@GetMapping(value = "/search_employee", headers = "Accept=application/json")
 	@ResponseBody

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.sv.app.bean.ApplicationStatusBean;
 import com.sv.app.bean.EmployeeBean;
 import com.sv.app.bean.ULBMasterBean;
 import com.sv.app.bean.VendorBean;
@@ -16,6 +17,11 @@ public interface VendorService {
 	public VendorBean findVendorById(int vendorID);
 	public VendorBean save(VendorBean vendorBean);
 	/*
+	 * public int getNextSequence(String sequenceName); public void
+	 * createSequence(String sequenceName);
+	 */
+	/*
 	 * public VendorBean update(VendorBean vendorBean);
 	 */
+	public List<VendorBean> getVendorByEmployeeandStatus(EmployeeBean employeeBean, ApplicationStatusBean status);
 }
