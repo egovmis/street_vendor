@@ -29,4 +29,9 @@ public interface EmployeeRepository extends CrudRepository<EmployeeBean, Integer
 
 	@Query("FROM EmployeeBean WHERE auth_token=:auth_token")
 	public EmployeeBean findByAuthToken(@Param("auth_token")String auth_token);
+
+	  @Modifying
+	    @Transactional
+	@Query("UPDATE EmployeeBean SET password=:password WHERE empid=:empid")
+	public void update(@Param("empid")int empid,@Param("password")String password);
 }

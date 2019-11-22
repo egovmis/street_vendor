@@ -1,10 +1,7 @@
 package com.sv.app.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,10 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -91,7 +85,7 @@ public class VendorBean implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "market_type", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private MktTypeMasterBean marketType;
+	private MktTypeMasterBean mktTypeMasterBean;
 
 	@Column(name = "uid_no")
 	private String uidNo;
@@ -173,17 +167,9 @@ public class VendorBean implements Serializable {
 
 	@Column(name = "active")
 	private String active;
-	
+
 	public int getVendorId() {
 		return vendorId;
-	}
-
-	public MktTypeMasterBean getMarketType() {
-		return marketType;
-	}
-
-	public void setMarketType(MktTypeMasterBean marketType) {
-		this.marketType = marketType;
 	}
 
 	public void setVendorId(int vendorId) {
@@ -300,14 +286,6 @@ public class VendorBean implements Serializable {
 
 	public void setVendingTime(VendingTimeBean vendingTime) {
 		this.vendingTime = vendingTime;
-	}
-
-	public MktTypeMasterBean getMktTypeMasterBean() {
-		return marketType;
-	}
-
-	public void setMktTypeMasterBean(MktTypeMasterBean marketType) {
-		this.marketType = marketType;
 	}
 
 	public String getUidNo() {
@@ -485,5 +463,15 @@ public class VendorBean implements Serializable {
 	public void setActive(String active) {
 		this.active = active;
 	}
+
+	public MktTypeMasterBean getMktTypeMasterBean() {
+		return mktTypeMasterBean;
+	}
+
+	public void setMktTypeMasterBean(MktTypeMasterBean mktTypeMasterBean) {
+		this.mktTypeMasterBean = mktTypeMasterBean;
+	}
+	
+	
 
 }

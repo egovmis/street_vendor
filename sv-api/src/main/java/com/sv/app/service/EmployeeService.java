@@ -25,4 +25,6 @@ public interface EmployeeService {
 
 	public EmployeeBean findbyAuthToken(String auth_token);
 
+	public void update(EmployeeBean employeeBeanSaved);
+
 }

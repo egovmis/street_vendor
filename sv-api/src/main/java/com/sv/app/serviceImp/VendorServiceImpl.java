@@ -48,10 +48,34 @@ public class VendorServiceImpl implements VendorService{
 
 	@Override
 	public List<VendorBean> getVendorByEmployeeandStatus(EmployeeBean employeeBean, ApplicationStatusBean status) {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<VendorBean>) vendorRepository.getVendorByEmployeeandStatus(employeeBean.getEmpId(),status.getStatusCode());
 	}
 
+	@Override
+	public void update(VendorBean response) {
+		vendorRepository.update(response.getVendorId(),response.getApplicationStatus().getStatusCode());
+	}
+	
+	@Override
+	public void updateForApproval(VendorBean response) {
+		vendorRepository.updateForApproval(response.getVendorId(),response.getApplicationStatus().getStatusCode(),response.getAllocatedZone().getVendingZoneCode(),response.getAllocatedVendingCategory().getCategoryName(),response.getDateOfApproval());
+	}
+	@Override
+	public void updateForFeePayment(VendorBean response) {
+		vendorRepository.updateForFeePayment(response.getVendorId(),response.getApplicationStatus().getStatusCode(),response.getValidFrom(),response.getValidTill(),response.getPaymentStatus());
+	}
+
+	@Override
+	public Boolean searchMobile(String mobile_number,ULBMasterBean ulbBean) {
+		VendorBean vendorBean=new VendorBean();
+		vendorBean.setMobileNo(mobile_number);
+		List<VendorBean> list=vendorRepository.findVendorByRequestParam(vendorBean.getVendorId(), vendorBean.getName(), vendorBean.getMobileNo(),ulbBean.getUlbCode());
+		if(list.isEmpty() && list.size()==0)
+			return true;
+		else
+			return false;
+	}
+	
 	/*
 	 * @Override public List<VendorBean> getVendorByEmployeeandStatus(EmployeeBean
 	 * employeeBean, ApplicationStatusBean status) { return (List<VendorBean>)

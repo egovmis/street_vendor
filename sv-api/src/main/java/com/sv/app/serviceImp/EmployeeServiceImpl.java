@@ -63,6 +63,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public EmployeeBean findbyAuthToken(String auth_token) {
 		return (EmployeeBean) employeeRepository.findByAuthToken(auth_token);
 	}
+
+	@Override
+	public void update(EmployeeBean employeeBeanSaved) {
+		employeeRepository.update(employeeBeanSaved.getEmpId(),employeeBeanSaved.getPassword());
+	}
 	
 
 }

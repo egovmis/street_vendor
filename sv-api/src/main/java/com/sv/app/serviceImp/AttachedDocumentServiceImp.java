@@ -25,7 +25,7 @@ public class AttachedDocumentServiceImp implements AttachedDocumentService{
 
 	@Override
 	public void saveAll(List<AttachedDocumentBean> attachedDocuments) {
-		attachedDocumentRepository.saveAll(attachedDocuments);
+		attachedDocumentRepository.save(attachedDocuments);
 		
 	}
 

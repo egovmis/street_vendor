@@ -7,11 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +15,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.hibernate.exception.SQLGrammarException;
@@ -36,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sv.app.bean.ApplicationStatusBean;
 import com.sv.app.bean.AttachedDocumentBean;
 import com.sv.app.bean.EmployeeBean;
 import com.sv.app.bean.VendorBean;
@@ -87,13 +83,15 @@ public class PersisterController {
 		return response;
 	}
 
+	
+//	
 	@PostMapping(value = "/reg-vendor", headers = "Accept=application/json")
 	@ResponseBody
 	public VendorBean registerVendor(@Valid @RequestBody final VendorBean vendorBean,
 			@RequestHeader("auth_token") String auth_token) {
 		VendorBean VenBean = vendorBean;
 		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
-		if (employeeBean != null) {
+		if (employeeBean != null && employeeBean.getDesignationBean().getDesignationCode().equals("Clerk")) {
 			System.out.println("employee is" + employeeBean.getName());
 			System.out.println("ulb is" + employeeBean.getUlbBean().getUlbName());
 
@@ -115,18 +113,23 @@ public class PersisterController {
 	@ResponseBody
 	public VendorBean uploadDocuments(@RequestParam("family_pic") MultipartFile family_pic,
 			@RequestParam("id_pic") MultipartFile id_pic, @RequestParam("place_pic") MultipartFile place_pic,
-			@RequestParam("cart_pic") MultipartFile cart_pic, @RequestParam("vendor_id") int vendor_id,
-			@RequestHeader("auth_token") String auth_token) throws SQLException {
+			@RequestParam("cart_pic") MultipartFile cart_pic,
+			@RequestParam("vendor_id") int vendor_id,								  
+													  @RequestHeader("auth_token") String auth_token
+													 ) throws SQLException {
 		VendorBean response = new VendorBean();
-		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		/*
+		 * String auth_token="89137318-b49b-49e0-aa89-b48f32e825bd";
+		 */		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
 		List<AttachedDocumentBean> attachedDocument = new ArrayList<>(0);
 		/* response = vendorService.findVendorById(vendor_id); */
 		// response.setVendorId(vendor_id);
 		String imgPath = null;
-		if (employeeBean != null && response != null) {
+		if (employeeBean != null  && employeeBean.getDesignationBean().getDesignationCode().equals("Clerk")) {
 			response = vendorService.findVendorById(vendor_id);
 			MultipartFile[] attachedfiles = { family_pic, id_pic, place_pic, cart_pic };
-			int i = attachedfiles.length;
+		if(response!=null)
+		{
 			for (MultipartFile file : attachedfiles) {
 				if (file.isEmpty()) {
 
@@ -149,6 +152,7 @@ public class PersisterController {
 						Path path = Paths.get(IMAGES_DIR + imgPath);
 						Files.write(path, bytes);
 						AttachedDocumentBean attachedDocumentBean = new AttachedDocumentBean();
+						//attachedDocumentBean.setDocumentId(Integer.parseInt(databaseSequenceProvider.getNextSequence("SEQ_attached_document").toString()));
 						attachedDocumentBean.setDocumentName(name);
 						attachedDocumentBean.setDocumentPath(path.toString());
 						attachedDocumentBean.setVendorBean(response);
@@ -160,11 +164,14 @@ public class PersisterController {
 						e.printStackTrace();
 					}
 				}
-			}
+			}}
 			attachedDocumenService.saveAll(attachedDocument);
 			String regNumber = generateRegistrationNumber(response);
 			response.setRegistrationNo(regNumber);
-			response.setApplicationStatus(applicationStatusService.getStatus("Submitted"));
+			ApplicationStatusBean s=applicationStatusService.getStatus("Submitted");
+			response.setApplicationStatus(s);
+			vendorService.update(response);
+			
 		}
 		return response;
 
@@ -192,10 +199,11 @@ public class PersisterController {
 	}
 	
 	
-	@GetMapping(value = "/approve-vendor", headers = "Accept=application/json")
+	
+	@GetMapping(value = "/getvendor_pendingforAproval", headers = "Accept=application/json")
 	@ResponseBody
 	public List<VendorBean> getVendorPendingforApproval(@RequestHeader("auth_token") String auth_token) throws SQLException {
-		List<VendorBean> response = (List<VendorBean>) new VendorBean();
+		List<VendorBean> response =null;
 		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
 		
 		if(employeeBean!=null)
@@ -204,6 +212,69 @@ public class PersisterController {
 		}
 		
 		return response;
+
+	}
+	
+	@PostMapping(value = "/approve_vendor", headers = "Accept=application/json")
+	@ResponseBody
+	public String approveVendor(@Valid @RequestBody final VendorBean vendorBean,@RequestHeader("auth_token") String auth_token) throws SQLException {
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		
+			if(employeeBean!=null  && employeeBean.getDesignationBean().getDesignationCode().equals("EO"))
+		{
+				vendorBean.setDateOfApproval(new Date().toString());
+				vendorBean.setApplicationStatus(applicationStatusService.getStatus("Approved"));
+				vendorService.updateForApproval(vendorBean);
+				return "Approved";
+		}
+		
+			else
+				return "Employee does not exists";
+		
+
+	}	
+	
+	@SuppressWarnings("deprecation")
+	@PostMapping(value = "/payFee", headers = "Accept=application/json")
+	@ResponseBody
+	public String payFeeForVendor(@Valid @RequestBody final VendorBean vendorBean,@RequestHeader("auth_token") String auth_token) throws SQLException {
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		
+			if(employeeBean!=null)
+			
+		{
+				Date currDate=new Date();
+				vendorBean.setPaymentStatus("Payment Done");
+				vendorBean.setValidFrom(new Date().toString());
+				vendorBean.setValidTill(new Date( currDate.getYear()+1,currDate.getMonth(),currDate.getDate()).toString());
+				vendorBean.setApplicationStatus(applicationStatusService.getStatus("Sanctioned"));
+				vendorService.updateForFeePayment(vendorBean);
+				return "Fee Paid";
+		}
+			else
+				return "Employee does not exists";
+		
+
+	}
+
+	@PostMapping(value = "/updateProfile", headers = "Accept=application/json")
+	@ResponseBody
+	public String updateProfile(@Valid @RequestBody final EmployeeBean employeeBean,@RequestHeader("auth_token") String auth_token) throws SQLException {
+	
+		EmployeeBean employeeBeanSaved = employeeService.findbyAuthToken(auth_token);
+
+			if(employeeBeanSaved!=null)
+		{
+				employeeBeanSaved.setPassword(employeeBean.getPassword());
+				employeeService.update(employeeBeanSaved);
+				
+				return "Employee Updated Successfully";
+		}
+			
+			else
+				return "Employee does not exists";
+		
+	
 
 	}
 }

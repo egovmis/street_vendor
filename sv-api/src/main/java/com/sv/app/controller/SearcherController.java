@@ -86,7 +86,6 @@ public class SearcherController {
 	@ResponseBody
 	public EmployeeBean getLoginUser(@RequestParam("name") String name, @RequestParam("password") String password) {
 		EmployeeBean employeeBean = new EmployeeBean();
-
 		employeeBean = employeeService.findLoginEmployee(name, password);
 		int isUserValidate = 0;
 		if (employeeBean != null) {
@@ -265,6 +264,17 @@ public class SearcherController {
 		if (employeeBean != null)
 			response = vendingTimeService.getAllVendingTime();
 		return response;
+
+	}
+	
+	@GetMapping(value = "/search_employee", headers = "Accept=application/json")
+	@ResponseBody
+	public Boolean searchMobile(String mobile_number, @RequestHeader("auth_token") String auth_token) {
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if(employeeBean!=null)
+		return vendorService.searchMobile(mobile_number,employeeBean.getUlbBean());
+			 else
+		return false;
 
 	}
 }

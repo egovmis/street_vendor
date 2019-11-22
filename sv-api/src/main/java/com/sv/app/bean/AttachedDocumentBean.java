@@ -18,55 +18,56 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="attached_document_master")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "attached_document_master")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class AttachedDocumentBean implements Serializable {
-	
-		@Id
-		@GeneratedValue(strategy=GenerationType.AUTO)
-		@Column(name="document_id")
-		private int documentId;
 
-		@Column(name="document_name")
-		private String documentName;
+	private static final long serialVersionUID = -4667948558401042849L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "document_id")
+	private int documentId;
 
-		@Column(name="document_path")
-		private String documentPath;
-		
-		@ManyToOne(fetch = FetchType.LAZY)
-		@JoinColumn(name = "reg_vendor_id")
-		@OnDelete(action = OnDeleteAction.CASCADE)
-		private VendorBean vendorBean;
+	@Column(name = "document_name")
+	private String documentName;
 
-		public int getDocumentId() {
-			return documentId;
-		}
+	@Column(name = "document_path")
+	private String documentPath;
 
-		public void setDocumentId(int documentId) {
-			this.documentId = documentId;
-		}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "reg_vendor_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private VendorBean vendorBean;
 
-		public String getDocumentName() {
-			return documentName;
-		}
+	public int getDocumentId() {
+		return documentId;
+	}
 
-		public void setDocumentName(String documentName) {
-			this.documentName = documentName;
-		}
+	public void setDocumentId(int documentId) {
+		this.documentId = documentId;
+	}
 
-		public String getDocumentPath() {
-			return documentPath;
-		}
+	public String getDocumentName() {
+		return documentName;
+	}
 
-		public void setDocumentPath(String documentPath) {
-			this.documentPath = documentPath;
-		}
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
+	}
 
-		public VendorBean getVendorBean() {
-			return vendorBean;
-		}
+	public String getDocumentPath() {
+		return documentPath;
+	}
 
-		public void setVendorBean(VendorBean vendorBean) {
-			this.vendorBean = vendorBean;
-		}
+	public void setDocumentPath(String documentPath) {
+		this.documentPath = documentPath;
+	}
+
+	public VendorBean getVendorBean() {
+		return vendorBean;
+	}
+
+	public void setVendorBean(VendorBean vendorBean) {
+		this.vendorBean = vendorBean;
+	}
 }
