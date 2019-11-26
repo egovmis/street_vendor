@@ -23,4 +23,9 @@ public class VendingZoneServiceImp implements VendingZoneService {
 		return (List<VendingZoneBean>) vendingZoneRepository.findAll();
 	}
 
+	@Override
+	public VendingZoneBean getVendingZoneByCode(String code) {
+		return (VendingZoneBean) vendingZoneRepository.findByCode(code);
+	}
+
 }

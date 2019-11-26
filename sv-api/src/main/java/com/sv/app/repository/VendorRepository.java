@@ -21,14 +21,14 @@ public interface VendorRepository extends CrudRepository<VendorBean, Integer>{
 	
 	  @Modifying
 	  @Transactional
-	@Query("update VendorBean set application_status=:application_status,allocated_zone=:vending_zone_code,allocated_vending_category=:vending_category_name,date_of_aproval=:date_of_approval WHERE vendor_id=:vendor_id")
-	public void updateForApproval(@Param("vendor_id")int vendor_id, @Param("application_status")String application_status,@Param("vending_zone_code")String vending_zone_code,@Param("vending_category_name")String vending_category_name,
+	@Query("update VendorBean set application_status=:application_status,valid_from=:valid_from,valid_till=:valid_till,allocated_zone=:vending_zone_code,allocated_vending_category=:vending_category_name,date_of_approval=:date_of_approval WHERE vendor_id=:vendor_id")
+	public void updateForApproval(@Param("vendor_id")int vendor_id, @Param("application_status")String application_status,@Param("valid_from")String valid_from,@Param("valid_till")String valid_till,@Param("vending_zone_code")String vending_zone_code,@Param("vending_category_name")String vending_category_name,
 			@Param("date_of_approval")String date_of_approval);
 	  
 	  @Modifying
 	  @Transactional
-	@Query("update VendorBean set application_status=:application_status,valid_from=:valid_from,valid_till=:valid_till,payment_status=:payment_status WHERE vendor_id=:vendor_id")
-	public void updateForFeePayment(@Param("vendor_id")int vendor_id, @Param("application_status")String application_status,@Param("valid_from")String valid_from,@Param("valid_till")String valid_till,
+	@Query("update VendorBean set application_status=:application_status,registration_no=:registration_no,receipt_number=:receipt_number,receipt_date=:receipt_date,payment_status=:payment_status WHERE vendor_id=:vendor_id")
+	public void updateForFeePayment(@Param("vendor_id")int vendor_id, @Param("application_status")String application_status,@Param("registration_no")String registration_no,@Param("receipt_number")String receipt_number,@Param("receipt_date")String receipt_date,
 			@Param("payment_status")String payment_status);
 	
 	

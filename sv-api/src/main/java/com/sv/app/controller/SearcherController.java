@@ -128,6 +128,7 @@ public class SearcherController {
 	@GetMapping(value = "/search_vendor", headers = "Accept=application/json")
 	@ResponseBody
 	public List<VendorBean> getUserById(VendorBean vendorBean, @RequestHeader("auth_token") String auth_token) {
+
 		List<VendorBean> response = null;
 		try {
 			EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
@@ -267,14 +268,4 @@ public class SearcherController {
 
 	}
 	
-	@GetMapping(value = "/search_employee", headers = "Accept=application/json")
-	@ResponseBody
-	public Boolean searchMobile(String mobile_number, @RequestHeader("auth_token") String auth_token) {
-		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
-		if(employeeBean!=null)
-		return vendorService.searchMobile(mobile_number,employeeBean.getUlbBean());
-			 else
-		return false;
-
-	}
 }

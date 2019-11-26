@@ -12,5 +12,5 @@ public interface VendingZoneService {
 	 */
 	List<VendingZoneBean> getAllVendingZones();
 
-
+	VendingZoneBean getVendingZoneByCode(String code);
 }

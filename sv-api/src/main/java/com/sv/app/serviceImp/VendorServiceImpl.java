@@ -58,11 +58,11 @@ public class VendorServiceImpl implements VendorService{
 	
 	@Override
 	public void updateForApproval(VendorBean response) {
-		vendorRepository.updateForApproval(response.getVendorId(),response.getApplicationStatus().getStatusCode(),response.getAllocatedZone().getVendingZoneCode(),response.getAllocatedVendingCategory().getCategoryName(),response.getDateOfApproval());
+		vendorRepository.updateForApproval(response.getVendorId(),response.getApplicationStatus().getStatusCode(),response.getValidFrom(),response.getValidTill(),response.getAllocatedZone().getVendingZoneCode(),response.getAllocatedVendingCategory().getCategoryName(),response.getDateOfApproval());
 	}
 	@Override
 	public void updateForFeePayment(VendorBean response) {
-		vendorRepository.updateForFeePayment(response.getVendorId(),response.getApplicationStatus().getStatusCode(),response.getValidFrom(),response.getValidTill(),response.getPaymentStatus());
+		vendorRepository.updateForFeePayment(response.getVendorId(),response.getApplicationStatus().getStatusCode(),response.getRegistrationNo(),response.getReceiptNumber(),response.getReceiptDate(),response.getPaymentStatus());
 	}
 
 	@Override

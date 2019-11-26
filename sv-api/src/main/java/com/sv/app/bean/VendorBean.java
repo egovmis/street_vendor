@@ -167,6 +167,28 @@ public class VendorBean implements Serializable {
 
 	@Column(name = "active")
 	private String active;
+	
+	@Column(name = "receipt_number")
+	private String receiptNumber;
+	
+	@Column(name = "receipt_date")
+	private String receiptDate;
+
+	public String getReceiptNumber() {
+		return receiptNumber;
+	}
+
+	public void setReceiptNumber(String receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
+
+	public String getReceiptDate() {
+		return receiptDate;
+	}
+
+	public void setReceiptDate(String receiptDate) {
+		this.receiptDate = receiptDate;
+	}
 
 	public int getVendorId() {
 		return vendorId;

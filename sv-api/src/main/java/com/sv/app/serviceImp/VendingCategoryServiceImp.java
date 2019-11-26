@@ -22,6 +22,11 @@ public class VendingCategoryServiceImp implements VendingCategoryService{
 		return  (List<VendingCategoryBean>)vendingCategoryRepository.findAll();
 	}
 
+	@Override
+	public VendingCategoryBean getVendingZoneByName(String name) {
+		return (VendingCategoryBean) vendingCategoryRepository.findByName(name);
+	}
+
 
 	/*
 	 * @Autowired PhysicianRepository physicianRepository;
