@@ -136,6 +136,8 @@ public class PersisterController {
 		if (employeeBean != null && employeeBean.getDesignationBean().getDesignationCode().equals("Clerk")) {
 			response = vendorService.findVendorById(vendor_id);
 			MultipartFile[] attachedfiles = { family_pic, id_pic, place_pic, cart_pic };
+			String[] imageType= {"FP","ID","PLACE","CART"};
+			int index=-1;
 			if (response != null) {
 				for (MultipartFile file : attachedfiles) {
 				if (file == null || file.getSize()==0) {
@@ -145,7 +147,7 @@ public class PersisterController {
 							byte[] bytes = null;
 							String ext = null;
 							String name = null;
-
+							index++;
 							if (file != null) {
 								bytes = file.getBytes();
 
@@ -157,7 +159,7 @@ public class PersisterController {
 								name = file.getOriginalFilename().substring(0,
 										file.getOriginalFilename().lastIndexOf("."));
 							}
-							imgPath = System.currentTimeMillis() + "-" + name + "." + ext;
+							imgPath = System.currentTimeMillis() +"-"+imageType[index]+"-" + name + "." + ext;
 							Path path = Paths.get(IMAGES_DIR + imgPath);
 							Files.write(path, bytes);
 							AttachedDocumentBean attachedDocumentBean = new AttachedDocumentBean();

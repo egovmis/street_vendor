@@ -1,11 +1,23 @@
 package com.sv.app.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sv.app.bean.AnnualIncomeMasterBean;
+import com.sv.app.bean.AttachedDocumentBean;
 import com.sv.app.bean.CategoryMasterBean;
 import com.sv.app.bean.DocumentMasterBean;
 import com.sv.app.bean.EQMasterBean;
@@ -26,6 +39,7 @@ import com.sv.app.bean.VendingTypeBean;
 import com.sv.app.bean.VendingZoneBean;
 import com.sv.app.bean.VendorBean;
 import com.sv.app.service.AnnualIncomeMasterService;
+import com.sv.app.service.AttachedDocumentService;
 import com.sv.app.service.CategoryMasterService;
 import com.sv.app.service.DocumentMasterService;
 import com.sv.app.service.EQService;
@@ -81,6 +95,10 @@ public class SearcherController {
 
 	@Autowired
 	AnnualIncomeMasterService annualIncomeMasterService;
+	
+	@Autowired
+	AttachedDocumentService attachedDocumentService;
+
 
 	@PostMapping(value = "/login_employee", headers = "Accept=application/json")
 	@ResponseBody
@@ -266,6 +284,35 @@ public class SearcherController {
 			response = vendingTimeService.getAllVendingTime();
 		return response;
 
+	}
+	
+	@GetMapping(value = "/getAttachedDocuments/{picType}")
+	@ResponseBody
+	public void getAttachedDocument(@RequestParam("vendor_id") int vendor_id,@PathVariable("picType") String picType,HttpServletRequest request, HttpServletResponse response) throws IOException {
+		VendorBean vendorBean = vendorService.findVendorById(vendor_id);
+
+		List<AttachedDocumentBean> attachedDocument=attachedDocumentService.getAttachedDocumentBId(vendorBean);
+		File attachedfile=null;
+		int index=-1;
+		Properties pathProperties = null;
+		
+		 for (AttachedDocumentBean aa:attachedDocument)
+		{			
+			if(aa.getDocumentPath().contains(picType))
+			{
+				response.setContentType("image/jpeg");
+				Path path= Paths.get(aa.getDocumentPath());
+				String pathToWeb = path.toString();
+				File f = new File(pathToWeb);
+				BufferedImage bi = ImageIO.read(f);
+				OutputStream out = response.getOutputStream();
+				ImageIO.write(bi, "jpg", out);
+				out.close();
+		           
+
+			}
+		}
+	
 	}
 	
 }

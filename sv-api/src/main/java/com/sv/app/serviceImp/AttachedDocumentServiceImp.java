@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sv.app.bean.AttachedDocumentBean;
+import com.sv.app.bean.VendorBean;
 import com.sv.app.repository.AttachedDocumentRepository;
 import com.sv.app.service.AttachedDocumentService;
 
@@ -27,6 +28,11 @@ public class AttachedDocumentServiceImp implements AttachedDocumentService{
 	public void saveAll(List<AttachedDocumentBean> attachedDocuments) {
 		attachedDocumentRepository.save(attachedDocuments);
 		
+	}
+
+	@Override
+	public List<AttachedDocumentBean> getAttachedDocumentBId(VendorBean vendorBean) {
+		return (List<AttachedDocumentBean>) attachedDocumentRepository.getAttachedDocumentById(vendorBean.getVendorId());
 	}
 
 	
