@@ -23,7 +23,7 @@ public interface VendorService {
 	/*
 	 * public VendorBean update(VendorBean vendorBean);
 	 */
-	public List<VendorBean> getVendorByEmployeeandStatus(EmployeeBean employeeBean, ApplicationStatusBean status);
+	public List<VendorBean> getVendorByEmployeeandStatus(ULBMasterBean ulbMasterBean, ApplicationStatusBean status);
 	public void update(VendorBean response);
 	void updateForApproval(VendorBean response);
 	void updateForFeePayment(VendorBean response);

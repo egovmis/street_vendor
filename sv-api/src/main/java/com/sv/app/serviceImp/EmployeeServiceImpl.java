@@ -44,6 +44,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<EmployeeBean> findEmployeeByRequestParam(EmployeeBean employeeBean) {
 		return (List<EmployeeBean>) employeeRepository.findEmployeeByRequestParam(employeeBean.getEmpId(), employeeBean.getName(), employeeBean.getPhoneNo(), employeeBean.getPassword(), employeeBean.getAuthToken());
 	}
+	
+	@Override
+	public EmployeeBean findEmployeeByMobileNo(String mobileNo) {
+		return (EmployeeBean) employeeRepository.findEmployeeByMobile(mobileNo);
+	}
 
 	
 	/*

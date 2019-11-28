@@ -47,8 +47,8 @@ public class VendorServiceImpl implements VendorService{
 	 */
 
 	@Override
-	public List<VendorBean> getVendorByEmployeeandStatus(EmployeeBean employeeBean, ApplicationStatusBean status) {
-		return (List<VendorBean>) vendorRepository.getVendorByEmployeeandStatus(employeeBean.getEmpId(),status.getStatusCode());
+	public List<VendorBean> getVendorByEmployeeandStatus(ULBMasterBean ulBean, ApplicationStatusBean status) {
+		return (List<VendorBean>) vendorRepository.getVendorByEmployeeandStatus(ulBean.getUlbCode(),status.getStatusCode());
 	}
 
 	@Override

@@ -69,6 +69,7 @@ D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\util\DatabaseSequ
 D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\service\AttachedDocumentService.java
 D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\bean\MktTypeMasterBean.java
 D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\repository\CategoryMasterRepository.java
+D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\util\SmsApiIntegrationService.java
 D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\bean\ZoneAllocationBean.java
 D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\repository\VendingTypeRepository.java
 D:\street_vendor\street_vendor\sv-api\src\main\java\com\sv\app\bean\AttachedDocumentBean.java

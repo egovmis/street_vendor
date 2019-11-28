@@ -65,6 +65,7 @@ com\sv\app\service\DocumentMasterService.class
 com\sv\app\serviceImp\IncomeCatMasterServiceImp.class
 com\sv\app\repository\BussinessTypeRepository.class
 com\sv\app\service\ULBMasterService.class
+com\sv\app\util\SmsApiIntegrationService.class
 com\sv\app\service\VendingTimeService.class
 com\sv\app\repository\FamilyMasterRepository.class
 com\sv\app\bean\ApplicationStatusBean.class

@@ -42,7 +42,7 @@ public interface VendorRepository extends CrudRepository<VendorBean, Integer>{
 	@Query("FROM VendorBean where vendor_id=:vendor_id")
 	public VendorBean findById(@Param("vendor_id")int vendor_id);
 
-	@Query("FROM VendorBean WHERE registered_by=:emp_id and application_status=:status")
-	public List<VendorBean> getVendorByEmployeeandStatus(@Param("emp_id")int emp_id, @Param("status")String status);
+	@Query("FROM VendorBean WHERE ulb_code=:ulbCode and application_status=:status")
+	public List<VendorBean> getVendorByEmployeeandStatus(@Param("ulbCode")String ulbCode, @Param("status")String status);
 
 }

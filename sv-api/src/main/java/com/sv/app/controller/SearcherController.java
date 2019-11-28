@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sv.app.bean.AnnualIncomeMasterBean;
+import com.sv.app.bean.ApplicationStatusBean;
 import com.sv.app.bean.AttachedDocumentBean;
 import com.sv.app.bean.CategoryMasterBean;
 import com.sv.app.bean.DocumentMasterBean;
@@ -39,6 +40,7 @@ import com.sv.app.bean.VendingTypeBean;
 import com.sv.app.bean.VendingZoneBean;
 import com.sv.app.bean.VendorBean;
 import com.sv.app.service.AnnualIncomeMasterService;
+import com.sv.app.service.ApplicationStatusService;
 import com.sv.app.service.AttachedDocumentService;
 import com.sv.app.service.CategoryMasterService;
 import com.sv.app.service.DocumentMasterService;
@@ -98,6 +100,10 @@ public class SearcherController {
 	
 	@Autowired
 	AttachedDocumentService attachedDocumentService;
+	
+	@Autowired
+	ApplicationStatusService applicationStatusService;
+
 
 
 	@PostMapping(value = "/login_employee", headers = "Accept=application/json")
@@ -167,6 +173,63 @@ public class SearcherController {
 		return response;
 
 	}
+	
+	@GetMapping(value = "/search_vendorByStatus", headers = "Accept=application/json")
+	@ResponseBody
+	public List<VendorBean> getUserByStatus(@RequestParam("status")String status,@RequestHeader("auth_token") String auth_token) {
+
+		List<VendorBean> response = null;
+		try {
+			EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+			
+			if (employeeBean != null && employeeBean.getName() != null) {
+
+				if (status!=null && !status.equals(""))
+				{
+					ApplicationStatusBean applicationStatus=applicationStatusService.getStatus(status);
+					response = vendorService.getVendorByEmployeeandStatus(employeeBean.getUlbBean(), applicationStatus);
+				}
+				else
+					response=vendorService.findVendor(employeeBean.getUlbBean());
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception is " + e.toString());
+		}
+
+		return response;
+
+	}
+	
+	@GetMapping(value = "/search_vendorCountByStatus", headers = "Accept=application/json")
+	@ResponseBody
+	public int getUserCountByStatus(@RequestParam("status")String status,@RequestHeader("auth_token") String auth_token) {
+
+		List<VendorBean> response = null;
+		int size=0;
+		try {
+			EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+			
+			if (employeeBean != null && employeeBean.getName() != null) {
+
+				if (status!=null && !status.isEmpty())
+				{
+					ApplicationStatusBean applicationStatus=applicationStatusService.getStatus(status);
+					response = vendorService.getVendorByEmployeeandStatus(employeeBean.getUlbBean(),applicationStatus);
+				}
+				else
+					response=vendorService.findVendor(employeeBean.getUlbBean());
+				
+				size=response.size();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception is " + e.toString());
+		}
+
+		return size;
+
+	}
 
 	@GetMapping(value = "/search_ulb", headers = "Accept=application/json")
 	@ResponseBody
@@ -175,6 +238,16 @@ public class SearcherController {
 		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
 		if (employeeBean != null)
 			response = ulbMasterService.getAllUlb();
+		return response;
+
+	}
+	@GetMapping(value = "/search_curulb", headers = "Accept=application/json")
+	@ResponseBody
+	public ULBMasterBean getCurULB(@RequestHeader("auth_token") String auth_token) {
+		ULBMasterBean response =null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = employeeBean.getUlbBean();
 		return response;
 
 	}
@@ -286,6 +359,16 @@ public class SearcherController {
 
 	}
 	
+	@GetMapping(value = "/search_status", headers = "Accept=application/json")
+	@ResponseBody
+	public List<ApplicationStatusBean> getApplicationStatus(@RequestHeader("auth_token") String auth_token) {
+		List<ApplicationStatusBean> response = null;
+		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
+		if (employeeBean != null)
+			response = applicationStatusService.getAllStatus();
+		return response;
+
+	}
 	@GetMapping(value = "/getAttachedDocuments/{picType}")
 	@ResponseBody
 	public void getAttachedDocument(@RequestParam("vendor_id") int vendor_id,@PathVariable("picType") String picType,HttpServletRequest request, HttpServletResponse response) throws IOException {

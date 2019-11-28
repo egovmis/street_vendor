@@ -1,7 +1,12 @@
 package com.sv.app.controller;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,6 +25,8 @@ import javax.validation.constraints.Null;
 import org.hibernate.exception.SQLGrammarException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +52,8 @@ import com.sv.app.service.VendingZoneService;
 import com.sv.app.service.VendorService;
 import com.sv.app.util.DatabaseSequenceCreator;
 import com.sv.app.util.DatabaseSequenceProvider;
+import com.sv.app.util.SmsApiIntegrationService;
+
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -76,6 +85,9 @@ public class PersisterController {
 
 	@Autowired
 	DatabaseSequenceProvider databaseSequenceProvider;
+	
+	@Autowired
+	SmsApiIntegrationService smsApiIntegrationService;
 
 	@Value("${file.upload-dir}")
 	private String IMAGES_DIR;
@@ -214,7 +226,7 @@ public class PersisterController {
 		EmployeeBean employeeBean = employeeService.findbyAuthToken(auth_token);
 
 		if (employeeBean != null) {
-			response = vendorService.getVendorByEmployeeandStatus(employeeBean,
+			response = vendorService.getVendorByEmployeeandStatus(employeeBean.getUlbBean(),
 					applicationStatusService.getStatus("Submitted"));
 		}
 
@@ -241,9 +253,13 @@ public class PersisterController {
 				vendorBean.setApplicationStatus(applicationStatusService.getStatus("Approved"));
 				vendorBean.setValidFrom(new Date().toString());
 				vendorBean.setValidTill(
-						new Date(currDate.getYear() + 1, currDate.getMonth(), currDate.getDate()).toString());
+						new Date(currDate.getYear() + 5, currDate.getMonth(), currDate.getDate()).toString());
 				vendorService.updateForApproval(vendorBean);
 			}
+			String msg="The street vendor License with vendor name "+ vendorBean.getName()+" and registration number : "+ vendorBean.getRegistrationNo()+"has been approved successfully.";
+			boolean status=smsApiIntegrationService.smsCallService(vendorBean.getMobileNo(), msg);
+			if(!status)
+				status=smsApiIntegrationService.smsCallService(vendorBean.getMobileNo(), msg);
 			return vendorBean;
 		}
 
@@ -271,6 +287,10 @@ public class PersisterController {
 				vendorBean.setApplicationStatus(applicationStatusService.getStatus("Pending for Aproval"));
 				vendorService.updateForFeePayment(vendorBean);
 			}
+			String msg="Registration Fee for street vendor License with vendor name "+ vendorBean.getName()+" and registration number : "+ vendorBean.getRegistrationNo()+"has been received successfully.";
+			boolean status=smsApiIntegrationService.smsCallService(vendorBean.getMobileNo(), msg);
+			if(!status)
+				status=smsApiIntegrationService.smsCallService(vendorBean.getMobileNo(), msg);
 			return vendorBean;
 		} else
 			return vendorBean;
@@ -296,22 +316,23 @@ public class PersisterController {
 		return String.format(RECEIPT_NUMBER_FORMAT, ulbCode, currentYear, sequenceNumber);
 	}
 
-	@PostMapping(value = "/updateProfile", headers = "Accept=application/json")
+	@PostMapping(value = "/resetPassword", headers = "Accept=application/json")
 	@ResponseBody
-	public String updateProfile(@Valid @RequestBody final EmployeeBean employeeBean,
-			@RequestHeader("auth_token") String auth_token) throws SQLException {
+	public boolean resetPassword(@RequestParam("mobileNo") String mobileNo, @RequestParam("newPassword") String newPassword) throws SQLException {
 
-		EmployeeBean employeeBeanSaved = employeeService.findbyAuthToken(auth_token);
+		EmployeeBean employeeBean = employeeService.findEmployeeByMobileNo(mobileNo);
 
-		if (employeeBeanSaved != null) {
-			employeeBeanSaved.setPassword(employeeBean.getPassword());
-			employeeService.update(employeeBeanSaved);
-
-			return "Employee Updated Successfully";
+		if (employeeBean != null) {
+			employeeBean.setPassword(newPassword);
+			employeeService.update(employeeBean);
+			String msg="Password for your login in street vending application has been reset to  "+ newPassword;
+			boolean status=smsApiIntegrationService.smsCallService(employeeBean.getPhoneNo(), msg);
+			return true;
 		}
 
 		else
-			return "Employee does not exists";
+			return false;
 
 	}
+	
 }

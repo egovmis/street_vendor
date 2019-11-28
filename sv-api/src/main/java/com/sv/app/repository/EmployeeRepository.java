@@ -27,11 +27,15 @@ public interface EmployeeRepository extends CrudRepository<EmployeeBean, Integer
 	@Query("FROM EmployeeBean WHERE (empid=:empid OR name =:name OR phone_no =:mobileNo OR password= :password) AND auth_token= :auth_token")
 	public List<EmployeeBean> findEmployeeByRequestParam(@Param("empid")int empid,@Param("name")String name,@Param("mobileNo")String mobileNo,@Param("password")String password, @Param("auth_token")String auth_token);
 
+	@Query("FROM EmployeeBean WHERE phone_no =:mobileNo")
+	public EmployeeBean findEmployeeByMobile(@Param("mobileNo")String mobileNo);
+
+	
 	@Query("FROM EmployeeBean WHERE auth_token=:auth_token")
 	public EmployeeBean findByAuthToken(@Param("auth_token")String auth_token);
 
 	  @Modifying
-	    @Transactional
+	   @Transactional
 	@Query("UPDATE EmployeeBean SET password=:password WHERE empid=:empid")
 	public void update(@Param("empid")int empid,@Param("password")String password);
 }
